@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Enemy
+  - Undefined
+  - PlayerProjectile
+  - EnemyProjectile
+  - UpgradeCard
+  - Debris
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Bounds
+  - Water
+  - UI
+  - Player
+  - Enemy
+  - Interactible Enemy
+  - Debris
+  - Projectile
+  - Interactible Projectile
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Particles
+    uniqueID: 1445206849
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Entities
+    uniqueID: 4134518363
+    locked: 0
+  - name: Projectiles
+    uniqueID: 1018350251
+    locked: 0
