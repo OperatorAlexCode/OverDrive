@@ -7,10 +7,8 @@ public class Torpedo : Projectile
 {
     Warhead Payload;
     protected bool ToBeDestroyed;
-    [SerializeField]
-    ParticleSystem Trail;
-    [SerializeField]
-    AudioSource Engine;
+    [SerializeField] ParticleSystem Trail;
+    [SerializeField] AudioSource EngineSfx;
 
     private void Start()
     {
@@ -25,6 +23,8 @@ public class Torpedo : Projectile
             ToBeDestroyed = false;
             ProjectileDeath();
         }
+
+        GameObjectHelper.AudioPauseCheck(EngineSfx);
     }
 
     public override void TargetHit(GameObject target)
@@ -44,7 +44,7 @@ public class Torpedo : Projectile
             transform.Find("Coloration").gameObject.SetActive(false);
             transform.Find("Body").gameObject.SetActive(false);
             HitSfx.Play();
-            Engine.Stop();
+            EngineSfx.Stop();
             Explosion.Play();
         }
     }
@@ -87,7 +87,8 @@ public class Torpedo : Projectile
         }
 
         Trail.Play();
-        Engine.Play();
+        EngineSfx.Play();
+
         base.Fire();
     }
 }

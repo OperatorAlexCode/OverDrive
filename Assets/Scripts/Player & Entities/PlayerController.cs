@@ -10,61 +10,38 @@ using Random = UnityEngine.Random;
 public class PlayerController : MonoBehaviour
 {
     // Float | Speed & Velocity
-    [SerializeField]
-    float Acceleration;
+    [SerializeField] float Acceleration;
     public float RotationalSpeed;
-    [SerializeField]
-    float MaxVelocity;
-    [SerializeField]
-    float MinHeatGainVel;
-    [SerializeField]
-    float LastVelocity;
+    [SerializeField] float MaxVelocity;
+    [SerializeField] float MinHeatGainVel;
+    [SerializeField] float LastVelocity;
 
     // Float | Heat
     public float Heat;
-    [Range(0f, 10000f)]
-    public float MaxHeat;
-    [SerializeField]
-    float HeatLoss;
-    [SerializeField]
-    float HeatGain;
+    [Range(0f, 10000f)] public float MaxHeat;
+    [SerializeField] float HeatLoss;
+    [SerializeField] float HeatGain;
 
     // Float | Primary
-    [SerializeField]
-    float PrimaryCooldown;
-    [SerializeField]
-    float PrimairyHeatCost;
-    [SerializeField]
-    float PrimaryFireDelay;
-    [SerializeField]
-    float PrimaryLaunchSpeed;
-    [SerializeField]
-    [Range(5f, 40f)]
-    float ScattershotSpread;
-    [SerializeField]
-    float TurretRotationSpeedController;
+    [SerializeField] float PrimaryCooldown;
+    [SerializeField] float PrimairyHeatCost;
+    [SerializeField] float PrimaryFireDelay;
+    [SerializeField] float PrimaryLaunchSpeed;
+    [SerializeField][Range(5f, 40f)] float ScattershotSpread;
+    [SerializeField] float TurretRotationSpeedController;
 
     // Float | Secondary
-    [SerializeField]
-    float SecondaryCooldown;
-    [SerializeField]
-    float SecondaryHeatCost;
-    [SerializeField]
-    float SecondaryFireDelay;
-    [SerializeField]
-    float SecondaryLaunchSpeed;
+    [SerializeField] float SecondaryCooldown;
+    [SerializeField] float SecondaryHeatCost;
+    [SerializeField] float SecondaryFireDelay;
+    [SerializeField] float SecondaryLaunchSpeed;
 
     // Float | Abilities
-    [SerializeField]
-    float RepairKitCooldown;
-    [SerializeField]
-    float RepairKitHeatCost;
-    [SerializeField]
-    float HeatVentCooldown;
-    [SerializeField]
-    float HeatVentDuration;
-    [SerializeField]
-    float HeatVentDrainAmount;
+    [SerializeField] float RepairKitCooldown;
+    [SerializeField] float RepairKitHeatCost;
+    [SerializeField] float HeatVentCooldown;
+    [SerializeField] float HeatVentDuration;
+    [SerializeField] float HeatVentDrainAmount;
 
     // Float | Other
     float LastHeatAmount;
@@ -72,14 +49,10 @@ public class PlayerController : MonoBehaviour
     // Int
     public int Health;
     public int MaxHealth;
-    [SerializeField]
-    int PrimaryDamage;
-    [SerializeField]
-    int SecondaryDamage;
-    [SerializeField]
-    int ChargedShotPenetration;
-    [SerializeField]
-    int ScattershotsAmount;
+    [SerializeField] int PrimaryDamage;
+    [SerializeField] int SecondaryDamage;
+    [SerializeField] int ChargedShotPenetration;
+    [SerializeField] int ScattershotsAmount;
 
     // Bool | Ship
     bool DisableHeat;
@@ -97,15 +70,11 @@ public class PlayerController : MonoBehaviour
     Dictionary<Ability, bool> IsAbilityAvailable;
 
     // GameObject
-    [SerializeField]
-    GameObject Laser;
-    [SerializeField]
-    GameObject Missile;
+    [SerializeField] GameObject Laser;
+    [SerializeField] GameObject Missile;
     GameObject Turret;
-    [SerializeField]
-    GameObject TorpedoTube;
-    [SerializeField]
-    GameObject CrossHair;
+    [SerializeField] GameObject TorpedoTube;
+    [SerializeField] GameObject CrossHair;
 
     // Vector2
     Vector2 AimDirection = Vector2.zero;
@@ -120,18 +89,13 @@ public class PlayerController : MonoBehaviour
     InputAction Ability2;
 
     // ParticleSystem
-    [SerializeField]
-    ParticleSystem[] EngineExhaust;
-    [SerializeField]
-    ParticleSystem Explosion;
+    [SerializeField] ParticleSystem[] EngineExhaust;
+    [SerializeField] ParticleSystem Explosion;
 
     // Audio Sources
-    [SerializeField]
-    AudioSource TurretFire;
-    [SerializeField]
-    AudioSource Engines;
-    [SerializeField]
-    AudioSource Hit;
+    [SerializeField] AudioSource TurretFireSfx;
+    [SerializeField] AudioSource EnginesSfx;
+    [SerializeField] AudioSource HitSfx;
 
     // Other
     Rigidbody2D Rb;
@@ -219,7 +183,7 @@ public class PlayerController : MonoBehaviour
                 Heat = LastHeatAmount;
 
             UseController = GameObject.Find(GameObjectNames.Managers).GetComponent<GameManager>().UseController;
-            SimpleSteering = GameObject.Find(GameObjectNames.Managers).GetComponent<GameManager>().SimpleSteering;
+            //SimpleSteering = GameObject.Find(GameObjectNames.Managers).GetComponent<GameManager>().SimpleSteering;
 
             CrossHair.SetActive(UseController);
 
@@ -276,46 +240,50 @@ public class PlayerController : MonoBehaviour
 
             if (!DisableMovement)
             {
-                if (SimpleSteering && UseController)
-                {
-                    // If the left controller stick is not being moved then slow down player ship
-                    if (MovementVector.y == 0 || MovementVector.y == 0)
-                        SlowDown();
+                //if (SimpleSteering && UseController)
+                //{
+                //    // If the left controller stick is not being moved then slow down player ship
+                //    if (MovementVector.y == 0 || MovementVector.y == 0)
+                //        SlowDown();
 
-                    else
-                    {
-                        // How much the stick is being moved
-                        float moveStrength = MovementVector.magnitude;
-                        // Angle between where stick is being pointed and the front of the ship
-                        float angle = Vector2.Angle(transform.up, MovementVector);
+                //    else
+                //    {
+                //        // How much the stick is being moved
+                //        float moveStrength = MovementVector.magnitude;
+                //        // Angle between where stick is being pointed and the front of the ship
+                //        float angle = Vector2.Angle(transform.up, MovementVector);
 
-                        // Rotates the ship in the direction stick is pointed
-                        Vector3 cross = Vector3.Cross(transform.up, MovementVector);
-                        Rb.AddTorque(RotationalSpeed * cross.z * moveStrength * Time.deltaTime, ForceMode2D.Force);
+                //        // Rotates the ship in the direction stick is pointed
+                //        Vector3 cross = Vector3.Cross(transform.up, MovementVector);
+                //        Rb.AddTorque(RotationalSpeed * cross.z * moveStrength * Time.deltaTime, ForceMode2D.Force);
 
-                        // Moves ship forward if the stick direction is less or equal to 45 degrees, else slow down ship
-                        if (angle <= 45f)
-                            Rb.AddForce(transform.up * Acceleration * moveStrength * Time.deltaTime, ForceMode2D.Force);
-                        else if (angle <= 90f)
-                            SlowDown();
+                //        // Moves ship forward if the stick direction is less or equal to 45 degrees, else slow down ship
+                //        if (angle <= 45f)
+                //            Rb.AddForce(transform.up * Acceleration * moveStrength * Time.deltaTime, ForceMode2D.Force);
+                //        else if (angle <= 90f)
+                //            SlowDown();
 
-                        EnableEngines(MovementVector.magnitude > 0);
-                    }
-                }
-                else
-                {
-                    if (MovementVector.y < 0)
-                        SlowDown();
+                //        EnableEngines(MovementVector.magnitude > 0);
+                //    }
+                //}
+                //else
+                //{
+                if (MovementVector.y < 0)
+                    SlowDown();
 
-                    else if (MovementVector.y > 0)
-                        Rb.AddForce(transform.up * Acceleration * MovementVector.y * Time.deltaTime, ForceMode2D.Force);
+                else if (MovementVector.y > 0)
+                    Rb.AddForce(transform.up * Acceleration * MovementVector.y * Time.deltaTime, ForceMode2D.Force);
 
-                    EnableEngines(MovementVector.y > 0);
+                EnableEngines(MovementVector.y > 0);
 
-                    Rb.AddTorque(-(RotationalSpeed * MovementVector.x * Time.deltaTime), ForceMode2D.Force);
-                }
+                Rb.AddTorque(-(RotationalSpeed * MovementVector.x * Time.deltaTime), ForceMode2D.Force);
+                //}
             }
         }
+
+        GameObjectHelper.AudioPauseCheck(TurretFireSfx);
+        GameObjectHelper.AudioPauseCheck(EnginesSfx);
+        //AudioPauseCheck(HitSfx);
     }
 
     #region Weapon Functions
@@ -323,7 +291,7 @@ public class PlayerController : MonoBehaviour
     {
         if (CanFirePrimary && !DisableWeapons)
         {
-            TurretFire.Play();
+            TurretFireSfx.Play();
             CanFirePrimary = false;
             //CanFireSecondary = false;
             yield return new WaitForSeconds(PrimaryFireDelay);
@@ -418,15 +386,15 @@ public class PlayerController : MonoBehaviour
     {
         if (newPrimary != PrimaryType)
         {
-            switch (newPrimary)
-            {
-                case PrimaryWeapon.ScatterShot:
-                    ScattershotsAmount = 5;
-                    break;
-                case PrimaryWeapon.ChargedShot:
-                    ChargedShotPenetration = 1;
-                    break;
-            }
+            //switch (newPrimary)
+            //{
+            //    case PrimaryWeapon.ScatterShot:
+            //        ScattershotsAmount = 5;
+            //        break;
+            //    case PrimaryWeapon.ChargedShot:
+            //        ChargedShotPenetration = 1;
+            //        break;
+            //}
 
             PrimaryType = newPrimary;
         }
@@ -502,7 +470,7 @@ public class PlayerController : MonoBehaviour
     public void Hurt(int damage)
     {
         Health -= damage;
-        Hit.Play();
+        HitSfx.Play();
     }
 
     public void SetColor(Color newColor)
@@ -723,10 +691,10 @@ public class PlayerController : MonoBehaviour
 
     void EnableEngines(bool enable)
     {
-        if (enable && !Engines.isPlaying)
-            Engines.Play();
+        if (enable && !EnginesSfx.isPlaying)
+            EnginesSfx.Play();
         else if (!enable)
-            Engines.Stop();
+            EnginesSfx.Stop();
 
         EnableDisableExhaust(enable);
     }

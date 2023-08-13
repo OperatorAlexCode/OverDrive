@@ -8,29 +8,21 @@ using Random = UnityEngine.Random;
 public class EnemySpawner : MonoBehaviour
 {
     // Float
-    [SerializeField]
-    float SpawnDelay;
-    [SerializeField]
-    float SpawnDistance;
+    [SerializeField] float SpawnDelay;
+    [SerializeField] float SpawnDistance;
 
     // GameObject
-    [SerializeField]
-    GameObject Drone;
-    [SerializeField]
-    GameObject Charger;
-    [SerializeField]
-    GameObject Destroyer;
-    [SerializeField]
-    GameObject Behemoth;
+    [SerializeField] GameObject Drone;
+    [SerializeField] GameObject Charger;
+    [SerializeField] GameObject Destroyer;
+    [SerializeField] GameObject Behemoth;
     GameObject Player;
 
     // Other
-    [SerializeField]
-    int MaxEnemies;
+    [SerializeField] int MaxEnemies;
     public int TotalEnemiesToSpawn;
     public Dictionary<EnemyType, int> EnemiesLeft;
-    [SerializeField]
-    public List<Wave> Waves;
+    [SerializeField] public List<Wave> Waves;
 
     void Start()
     {
@@ -163,7 +155,7 @@ public class EnemySpawner : MonoBehaviour
 
     public bool LastWave(int currentWave)
     {
-        return Waves.Count < currentWave;
+        return Waves.Count <= currentWave;
     }
 }
 
@@ -176,8 +168,7 @@ public class Wave
 [System.Serializable]
 public class EnemyToSpawn
 {
-    [SerializeField]
-    public EnemyType Type;
+    [SerializeField] public EnemyType Type;
     public int SpawnAmount;
     public bool BossEnemy;
 }

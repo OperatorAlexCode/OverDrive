@@ -5,14 +5,11 @@ using UnityEngine;
 public class Destroyer : Drone
 {
     // GameObject
-    [SerializeField]
-    protected GameObject TorpedoBay;
+    [SerializeField] protected GameObject TorpedoBay;
     protected GameObject LoadedTorpedo;
     // Other
-    [SerializeField]
-    protected Warhead Warhead;
-    [SerializeField]
-    protected float StopSpeed;
+    [SerializeField] protected Warhead Warhead;
+    [SerializeField] protected float StopSpeed;
 
     protected override void EnemyInitialization()
     {
@@ -98,7 +95,7 @@ public class Destroyer : Drone
 
         Torpedo torpedo = newTorpedo.GetComponent<Torpedo>();
 
-        torpedo.Set(Damage,ProjectileLaunchSpeed, ProjectileHitMask);
+        torpedo.Set(Damage, ProjectileLaunchSpeed, ProjectileHitMask);
         torpedo.SetColor(GameObject.Find(GameObjectNames.Managers).GetComponent<GameManager>().EnemyProjectilesColor);
         torpedo.SetStats(8f, ProjectileLaunchSpeed);
 

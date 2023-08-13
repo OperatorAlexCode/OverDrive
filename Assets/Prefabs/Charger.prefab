@@ -65,8 +65,8 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.007266769
-      value: 0.79047775
+      time: 0
+      value: 0.60915756
       inSlope: -1.8378326
       outSlope: -1.8378326
       tangentMode: 0
@@ -74,8 +74,8 @@ AudioSource:
       inWeight: 0
       outWeight: 0.22548702
     - serializedVersion: 3
-      time: 0.3743286
-      value: 0.2557733
+      time: 0.379776
+      value: 0.3726251
       inSlope: -0.10813996
       outSlope: -0.10813996
       tangentMode: 0
@@ -90,7 +90,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -5147,10 +5147,10 @@ MonoBehaviour:
   - {fileID: 26108618647380792}
   Explosion: {fileID: 3193731530461668455}
   CanBeStunned: 1
-  Hit: {fileID: 7722678550520829847}
-  Death: {fileID: -3478644835769238775}
-  FireSound: {fileID: 0}
-  Engines: {fileID: 8347026706753534471}
+  HitSfx: {fileID: 7722678550520829847}
+  DeathSfx: {fileID: -3478644835769238775}
+  FireSfx: {fileID: 0}
+  EnginesSfx: {fileID: 8347026706753534471}
   Type: 1
   ProjectileHitMask:
     serializedVersion: 2
@@ -10006,7 +10006,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: a3d657496f72b5641a3e8207c7effeae, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 1.1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -10014,9 +10014,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 100
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -10026,21 +10026,21 @@ AudioSource:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 0.09205584
+      outSlope: 0.09205584
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0.16712327
     - serializedVersion: 3
       time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
+      value: 0.18533325
+      inSlope: -1.6667868
+      outSlope: -1.6667868
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0.082191885
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -10049,7 +10049,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

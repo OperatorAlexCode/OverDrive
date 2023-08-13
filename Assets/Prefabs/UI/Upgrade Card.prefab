@@ -277,7 +277,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3156230971607336327}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2918512326823925443}
+        m_TargetAssemblyTypeName: UpgradeCard, Assembly-CSharp
+        m_MethodName: UpgradePlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &529084183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,6 +329,7 @@ MonoBehaviour:
   ChargedShotIcon: {fileID: 2238673476719064792, guid: 3d3b049dbe1d33744afc05a03f2633e5, type: 3}
   MissileIcon: {fileID: 6945193404800312180, guid: 3d3b049dbe1d33744afc05a03f2633e5, type: 3}
   FlakIcon: {fileID: 1796705744817713456, guid: 3d3b049dbe1d33744afc05a03f2633e5, type: 3}
+  Upgrade: {fileID: 0}
   ScaleMultiplier: 1.2
   SelectedCard: 0
 --- !u!114 &236421505664310743

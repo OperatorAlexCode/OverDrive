@@ -6,31 +6,20 @@ using UnityEngine.UI;
 public class Behemoth : Destroyer
 {
     // Float | Missile
-    [SerializeField]
-    float MissileTurnSpeed;
-    [SerializeField]
-    float MissileAcceleration;
-    [SerializeField]
-    float MissileLockOnDistance;
-    [SerializeField]
-    float MissileSeekingCone;
+    [SerializeField] float MissileTurnSpeed;
+    [SerializeField] float MissileAcceleration;
+    [SerializeField] float MissileLockOnDistance;
+    [SerializeField] float MissileSeekingCone;
     // Float | Turrets
-    [SerializeField]
-    float TurretLaserSpeed;
-    [SerializeField]
-    float TurretCooldown;
-    [SerializeField]
-    float TurretRange;
-    [SerializeField]
-    float TurretRotationSpeed;
-    [SerializeField]
-    float TurretMinimumFiringAngle;
+    [SerializeField] float TurretLaserSpeed;
+    [SerializeField] float TurretCooldown;
+    [SerializeField] float TurretRange;
+    [SerializeField] float TurretRotationSpeed;
+    [SerializeField] float TurretMinimumFiringAngle;
 
     // Other
-    [SerializeField]
-    int TurretDamage;
-    [SerializeField]
-    List<LaserTurret> Turrets;
+    [SerializeField] int TurretDamage;
+    [SerializeField] List<LaserTurret> Turrets;
 
     protected override void EnemyInitialization()
     {

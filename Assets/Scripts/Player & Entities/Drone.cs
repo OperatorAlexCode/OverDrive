@@ -7,76 +7,54 @@ using System.Linq;
 public class Drone : MonoBehaviour
 {
     // Float | Ship
-    [SerializeField]
-    protected float Acceleration;
-    [SerializeField]
-    protected float RotationalSpeed;
-    [SerializeField]
-    protected float MaxVelocity;
+    [SerializeField] protected float Acceleration;
+    [SerializeField] protected float RotationalSpeed;
+    [SerializeField] protected float MaxVelocity;
 
     // Float | Weapon
-    [SerializeField]
-    protected float FireDelay;
-    [SerializeField]
-    protected float Range;
-    [SerializeField]
-    protected float ProjectileLaunchSpeed;
-    [SerializeField]
-    protected float MinimumFiringAngle;
+    [SerializeField] protected float FireDelay;
+    [SerializeField] protected float Range;
+    [SerializeField] protected float ProjectileLaunchSpeed;
+    [SerializeField] protected float MinimumFiringAngle;
 
     // Float | Other
-    [SerializeField]
-    protected float DespawnDistance;
-    [SerializeField]
-    protected float NextWaypointDistance;
-    [SerializeField]
-    protected float StunDuration;
+    [SerializeField] protected float DespawnDistance;
+    [SerializeField] protected float NextWaypointDistance;
+    [SerializeField] protected float StunDuration;
 
     // Int
-    [SerializeField]
-    protected int Health;
-    [SerializeField]
-    protected int Damage;
+    [SerializeField] protected int Health;
+    [SerializeField] protected int Damage;
     protected int CurrentWaypoint;
 
     // GameObject
-    [SerializeField]
-    protected GameObject Projectile;
+    [SerializeField] protected GameObject Projectile;
     protected GameObject Player;
     protected Vector3 PlayerPos;
 
     // Particle System
-    [SerializeField]
-    protected ParticleSystem[] EngineExhaust;
-    [SerializeField]
-    protected ParticleSystem Explosion;
+    [SerializeField] protected ParticleSystem[] EngineExhaust;
+    [SerializeField] protected ParticleSystem Explosion;
 
     // bool
     protected bool IsDead;
     protected bool CanFire = true;
     protected bool Stunned;
-    [SerializeField]
-    protected bool CanBeStunned;
+    [SerializeField] protected bool CanBeStunned;
 
     // Audio Source
-    [SerializeField]
-    protected AudioSource Hit;
-    [SerializeField]
-    protected AudioSource Death;
-    [SerializeField]
-    protected AudioSource FireSound;
-    [SerializeField]
-    protected AudioSource Engines;
+    [SerializeField] protected AudioSource HitSfx;
+    [SerializeField] protected AudioSource DeathSfx;
+    [SerializeField] protected AudioSource FireSfx;
+    [SerializeField] protected AudioSource EnginesSfx;
 
     // Other
     protected Rigidbody2D Rb;
     protected Seeker Seeker;
     protected Path Path;
-    [SerializeField]
-    protected EnemyType Type;
-    [SerializeField]
-    protected LayerMask ProjectileHitMask;
-    
+    [SerializeField] protected EnemyType Type;
+    [SerializeField] protected LayerMask ProjectileHitMask;
+
 
     // Start is called before the first frame update
     protected void Start()
@@ -101,6 +79,11 @@ public class Drone : MonoBehaviour
 
             EnemyLogic();
         }
+
+        GameObjectHelper.AudioPauseCheck(EnginesSfx);
+        GameObjectHelper.AudioPauseCheck(FireSfx);
+        GameObjectHelper.AudioPauseCheck(DeathSfx);
+        //GameObjectHelper.AudioPauseCheck(HitSfx);
     }
 
     public virtual void EnemyLogic()
@@ -185,7 +168,7 @@ public class Drone : MonoBehaviour
         laser.Set(Damage, ProjectileLaunchSpeed, ProjectileHitMask);
         laser.SetColor(GameObject.Find(GameObjectNames.Managers).GetComponent<GameManager>().EnemyProjectilesColor);
         laser.Fire();
-        FireSound.Play();
+        FireSfx.Play();
 
         yield return new WaitForSeconds(FireDelay);
         CanFire = true;
@@ -197,7 +180,7 @@ public class Drone : MonoBehaviour
 
         if (!IsDead && CanBeStunned)
         {
-            Hit.Play();
+            //Hit.Play();
             if (Mathf.RoundToInt(Random.value) == 1)
                 Rb.AddTorque(-damage * 2f, ForceMode2D.Impulse);
             else
@@ -211,7 +194,7 @@ public class Drone : MonoBehaviour
 
     protected virtual IEnumerator EnemyDeath()
     {
-        Death.Play();
+        DeathSfx.Play();
         Rb.velocity = Vector3.zero;
         Rb.angularVelocity = 0;
 
@@ -247,7 +230,7 @@ public class Drone : MonoBehaviour
     }
 
     protected virtual IEnumerator StunDelay()
-    { 
+    {
         yield return new WaitForSeconds(StunDuration);
         Stunned = false;
         EnableDisableEngineExhaust(true);
@@ -286,10 +269,10 @@ public class Drone : MonoBehaviour
 
     protected void EnableEngines(bool enable)
     {
-        if (enable && !Engines.isPlaying)
-            Engines.Play();
+        if (enable && !EnginesSfx.isPlaying)
+            EnginesSfx.Play();
         else if (!enable)
-            Engines.Stop();
+            EnginesSfx.Stop();
 
         EnableDisableEngineExhaust(enable);
     }

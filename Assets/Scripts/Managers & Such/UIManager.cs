@@ -28,57 +28,39 @@ public class UIManager : MonoBehaviour
     public List<GameObject> PreviouslySelected;
 
     // Color | Upgrades
-    [SerializeField]
-    Color ShipUpgrade;
-    [SerializeField]
-    Color PrimaryUpgrade;
-    [SerializeField]
-    Color SecondaryUpgrade;
-    [SerializeField]
-    Color ScatterShotUpgrade;
-    [SerializeField]
-    Color ChargeShotUpgrade;
-    [SerializeField]
-    Color MissileUpgrade;
-    [SerializeField]
-    Color FlakUpgrade;
-    [SerializeField]
-    Color SpecialUpgrade;
+    [SerializeField] Color ShipUpgrade;
+    [SerializeField] Color PrimaryUpgrade;
+    [SerializeField] Color SecondaryUpgrade;
+    [SerializeField] Color ScatterShotUpgrade;
+    [SerializeField] Color ChargeShotUpgrade;
+    [SerializeField] Color MissileUpgrade;
+    [SerializeField] Color FlakUpgrade;
+    [SerializeField] Color SpecialUpgrade;
 
     // Color | Timers
-    [SerializeField]
-    Color TimerBackground;
-    [SerializeField]
-    Color TimerBacking;
-    [SerializeField]
-    Color TimerOverlay;
+    [SerializeField] Color TimerBackground;
+    [SerializeField] Color TimerBacking;
+    [SerializeField] Color TimerOverlay;
 
     // Color | Other
-    [SerializeField]
-    Color[] HeatBarGradientColors;
+    [SerializeField] Color[] HeatBarGradientColors;
 
     // MenuUI
     public MenuUI CurrentInterface;
     public MenuUI LastInterface;
 
     // Texture2D
-    [SerializeField]
-    Texture2D AimCursor;
-    [SerializeField]
-    Texture2D DefaultCursor;
+    [SerializeField] Texture2D AimCursor;
+    [SerializeField] Texture2D DefaultCursor;
 
     // Gradient
     Gradient HeatBarGradient;
-    [SerializeField]
-    Gradient HealthBarGradient;
+    [SerializeField] Gradient HealthBarGradient;
 
     // Slider
-    [SerializeField]
-    Slider HeatBar;
-    [SerializeField]
-    Slider HealthBar;
-    [SerializeField]
-    Slider BossHealthBar;
+    [SerializeField] Slider HeatBar;
+    [SerializeField] Slider HealthBar;
+    [SerializeField] Slider BossHealthBar;
 
     // Image
     Image HeatBarFill;
@@ -92,17 +74,15 @@ public class UIManager : MonoBehaviour
     public Timer Ability2Timer;
 
     // Other
-    [SerializeField]
-    PlayerController Player;
-    [SerializeField]
-    TextMeshProUGUI HealthText;
+    [SerializeField] PlayerController Player;
+    [SerializeField] TextMeshProUGUI HealthText;
 
     private void Start()
     {
         // Sets values for some ui element in the settings menu
         SettingsMenu.transform.Find("Options").Find(GameObjectNames.ControlerToggle).GetComponent<Toggle>().isOn = GetComponent<GameManager>().UseController;
-        SettingsMenu.transform.Find("Options").Find(GameObjectNames.SimpleControlsToggle).GetComponent<Toggle>().isOn = GetComponent<GameManager>().SimpleSteering;
-        SettingsMenu.transform.Find("Options").Find(GameObjectNames.RotateSpeedSlider).GetComponent<Slider>().value = Player.RotationalSpeed;
+        //SettingsMenu.transform.Find("Options").Find(GameObjectNames.SimpleControlsToggle).GetComponent<Toggle>().isOn = GetComponent<GameManager>().SimpleSteering;
+        SettingsMenu.transform.Find("Options").Find(GameObjectNames.RotateSpeedSlider).Find("Slider").GetComponent<Slider>().value = Player.RotationalSpeed;
 
         HeatBarFill = GetSliderFill(HeatBar);
         HealthBarFill = GetSliderFill(HealthBar);
@@ -162,13 +142,14 @@ public class UIManager : MonoBehaviour
             // Sets the bar's values
             HeatBar.value = Player.Heat;
             HealthBar.value = Player.Health;
+            HealthText.text = $"{Player.Health}";
 
             // Changes the color to the health and heat bar to fit their respective gradients
-            HeatBarFill.color = HeatBarGradient.Evaluate(Player.Heat/Player.MaxHeat);
-            HealthBarFill.color = HealthBarGradient.Evaluate((float)Player.Health/(float)Player.MaxHealth);
+            HeatBarFill.color = HeatBarGradient.Evaluate(Player.Heat / Player.MaxHeat);
+            HealthBarFill.color = HealthBarGradient.Evaluate((float)Player.Health / (float)Player.MaxHealth);
 
-            // Wether the player can interact with the controler toggle if 
-            SettingsMenu.transform.Find("Options").Find(GameObjectNames.ControlerToggle).GetComponent<Toggle>().interactable = Gamepad.current != null;
+            //// Wether the player can interact with the controler toggle if 
+            //SettingsMenu.transform.Find("Options").Find(GameObjectNames.ControlerToggle).GetComponent<Toggle>().interactable = Gamepad.current != null;
         }
     }
 
@@ -239,8 +220,8 @@ public class UIManager : MonoBehaviour
 
             newCard.GetComponent<UpgradeCard>().Set(upgrade, color);
 
-            newCard.GetComponent<Button>().onClick.AddListener(ClearDisplayedUpgrades);
-            newCard.GetComponent<Button>().onClick.AddListener(GetComponent<GameManager>().StartWave);
+            //newCard.GetComponent<Button>().onClick.AddListener(ClearDisplayedUpgrades);
+            //newCard.GetComponent<Button>().onClick.AddListener(GetComponent<GameManager>().StartWave);
         }
 
         if (GetComponent<GameManager>().UseController)
@@ -357,7 +338,7 @@ public class UIManager : MonoBehaviour
                 GameOverScreen.transform.Find("Buttons").Find("Retry").GetComponent<Button>().Select();
                 break;
             case MenuUI.Settings:
-                SettingsMenu.transform.Find(GameObjectNames.PauseMenuOptions).Find(GameObjectNames.RotateSpeedSlider).GetComponent<Slider>().Select();
+                SettingsMenu.transform.Find(GameObjectNames.PauseMenuOptions).Find(GameObjectNames.RotateSpeedSlider).Find("Slider").GetComponent<Slider>().Select();
                 break;
         }
     }
@@ -391,7 +372,7 @@ public class UIManager : MonoBehaviour
 
     void ChangeToAimCursor()
     {
-        Cursor.SetCursor(AimCursor, new Vector2(AimCursor.width/2,AimCursor.height/2), CursorMode.Auto);
+        Cursor.SetCursor(AimCursor, new Vector2(AimCursor.width / 2, AimCursor.height / 2), CursorMode.Auto);
     }
 
     void ChangeToDefaultCursor()

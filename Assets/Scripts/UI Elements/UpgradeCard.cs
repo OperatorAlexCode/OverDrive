@@ -9,26 +9,18 @@ using UnityEngine.UI;
 public class UpgradeCard : MonoBehaviour
 {
     // Sprite
-    [SerializeField]
-    Sprite ShipIcon;
-    [SerializeField]
-    Sprite PrimairyIcon;
-    [SerializeField]
-    Sprite SecondaryIcon;
-    [SerializeField]
-    Sprite ScatterShotIcon;
-    [SerializeField]
-    Sprite ChargedShotIcon;
-    [SerializeField]
-    Sprite MissileIcon;
-    [SerializeField]
-    Sprite FlakIcon;
+    [SerializeField] Sprite ShipIcon;
+    [SerializeField] Sprite PrimairyIcon;
+    [SerializeField] Sprite SecondaryIcon;
+    [SerializeField] Sprite ScatterShotIcon;
+    [SerializeField] Sprite ChargedShotIcon;
+    [SerializeField] Sprite MissileIcon;
+    [SerializeField] Sprite FlakIcon;
 
     // Other
-    Upgrade Upgrade;
+    [SerializeField] Upgrade Upgrade;
     Vector3 StartScale;
-    [SerializeField]
-    float ScaleMultiplier;
+    [SerializeField] float ScaleMultiplier;
     public bool SelectedCard;
 
     private void Update()
@@ -45,7 +37,7 @@ public class UpgradeCard : MonoBehaviour
     public void Set(Upgrade upgrade)
     {
         Upgrade = upgrade;
-        gameObject.GetComponent<Button>().onClick.AddListener(UpgradePlayer);
+        //gameObject.GetComponent<Button>().onClick.AddListener(UpgradePlayer);
         if (upgrade.Changes.Any(c => c.Stat == Stat.WeaponUnlock))
         {
             switch (upgrade.Type)
@@ -59,7 +51,7 @@ public class UpgradeCard : MonoBehaviour
                 case UpgradeType.ChargedShot:
                     gameObject.GetComponent<Button>().onClick.AddListener(() =>
                     {
-                        GameObject.Find("Managers").GetComponent<UpgradeManager>().UnlockWeaponUpgrades(PrimaryWeapon.ScatterShot);
+                        GameObject.Find("Managers").GetComponent<UpgradeManager>().UnlockWeaponUpgrades(PrimaryWeapon.ChargedShot);
                     });
                     break;
                 case UpgradeType.Missile:
@@ -127,7 +119,6 @@ public class UpgradeCard : MonoBehaviour
 
         transform.Find("Stat Icon").GetComponent<Image>().color = statIconColor;
 
-
         //StartScale = transform.localScale;
         transform.localScale = Vector3.one;
         StartScale = Vector3.one;
@@ -142,7 +133,9 @@ public class UpgradeCard : MonoBehaviour
     public void UpgradePlayer()
     {
         GameObject.Find(GameObjectNames.Player).GetComponent<PlayerController>().Upgrade(Upgrade);
-        GameObject.Find(GameObjectNames.Player).GetComponent<PlayerController>().EnableDisableAutoStop(false);
+        GameObject.Find(GameObjectNames.Managers).GetComponent<UpgradeManager>().UpgradePicked(Upgrade.Changes.Any(c => c.Stat == Stat.WeaponUnlock));
+
+        Destroy(gameObject);
     }
 
     /// <summary>

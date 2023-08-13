@@ -7,14 +7,18 @@ using Random = UnityEngine.Random;
 
 public class UpgradeManager : MonoBehaviour
 {
+    // Upgrade
     public List<Upgrade> AvailableUpgrades = new();
     public List<Upgrade> ScatterShotUpgrades = new();
     public List<Upgrade> ChargedShotUpgrades = new();
     public List<Upgrade> MissileUpgrades = new();
     public List<Upgrade> FlakUpgrades = new();
     public List<Upgrade> AquiredUpgrades = new();
-    [SerializeField]
-    public List<WaveUpgradePair> SpecialWaveUpgrades;
+    [SerializeField] public List<WaveUpgradePair> SpecialWaveUpgrades;
+
+    // Int
+    public int SelectedUpgrades;
+    public int UpgradesToSelect;
 
     public List<Upgrade> GetUpgradeSet(int upgradeToGet)
     {
@@ -68,12 +72,22 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
+    public void UpgradePicked(bool isWeaponUnlock = false)
+    {
+        if (++SelectedUpgrades == UpgradesToSelect || isWeaponUnlock)
+        {
+            GameObject.Find(GameObjectNames.Player).GetComponent<PlayerController>().EnableDisableAutoStop(false);
+            SelectedUpgrades = 0;
+
+            GetComponent<UIManager>().ClearDisplayedUpgrades();
+            GetComponent<GameManager>().StartWave();
+        }
+    }
+
     [Serializable]
     public class WaveUpgradePair
     {
-        [SerializeField]
-        public int Wave;
-        [SerializeField]
-        public List<Upgrade> Upgrades = new();
+        [SerializeField] public int Wave;
+        [SerializeField] public List<Upgrade> Upgrades = new();
     }
 }

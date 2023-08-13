@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Charger : Drone
 {
-    [SerializeField]
-    GameObject DetonatorTrigger;
+    [SerializeField] GameObject DetonatorTrigger;
     bool LockedOn;
 
     //protected override void EnemyInitialization()

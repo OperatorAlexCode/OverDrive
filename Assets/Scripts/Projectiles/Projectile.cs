@@ -33,6 +33,8 @@ public class Projectile : MonoBehaviour
 
             ProjectileLogic();
         }
+
+        GameObjectHelper.AudioPauseCheck(HitSfx);
     }
 
     public virtual void ProjectileLogic()

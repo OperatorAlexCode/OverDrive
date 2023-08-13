@@ -62,4 +62,20 @@ public class GameObjectHelper : MonoBehaviour
         List<GameObject> gameObjects = GameObject.FindGameObjectsWithTag(objectTag).ToList();
         return gameObjects.Where(o => Vector2.Distance(o.transform.position, start.transform.position) <= maxDistance).ToList();
     }
+
+    /// <summary>
+    /// Checks if the audio source should be paused if the game is paused, if the audio source exists
+    /// </summary>
+    /// <param name="audioSource">The audio source to check</param>
+    static public void AudioPauseCheck(AudioSource audioSource)
+    {
+        if (audioSource != null)
+        {
+            if (audioSource.isPlaying && GameObject.Find(GameObjectNames.Managers).GetComponent<GameManager>().GamePaused)
+                audioSource.Pause();
+            else if (!audioSource.isPlaying && !GameObject.Find(GameObjectNames.Managers).GetComponent<GameManager>().GamePaused)
+                audioSource.UnPause();
+        }
+
+    }
 }

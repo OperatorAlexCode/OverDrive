@@ -22,7 +22,12 @@ public class Laser : Projectile
             base.ProjectileDeath(silentDestuction);
         }
         else
+        {
             GetComponent<ParticleSystem>().Play();
+
+            if (!HitSfx.isPlaying)
+                HitSfx.Play();
+        }
     }
 
     public void SetPenetration(int newPenetration)

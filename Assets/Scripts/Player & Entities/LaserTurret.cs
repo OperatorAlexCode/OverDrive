@@ -18,7 +18,7 @@ public class LaserTurret : MonoBehaviour
     bool Disabled = true;
 
     // GameObject
-    [SerializeField]GameObject Projectile;
+    [SerializeField] GameObject Projectile;
     GameObject CurrentTarget;
     [SerializeField] GameObject ProjectileStart;
 
@@ -69,11 +69,14 @@ public class LaserTurret : MonoBehaviour
                         transform.up = VectorHelper.AngleVector(transform.up, Mathf.Clamp(rotationDifference, -TurnSpeed, TurnSpeed) * Time.deltaTime);
                     }
 
-                    if (CanFire && Vector2.Angle(transform.up, (CurrentTarget.transform.position - transform.position).normalized) <= MinimumFiringAngle)
-                        StartCoroutine(Fire());
+                    if (CurrentTarget != null)
+                        if (CanFire && Vector2.Angle(transform.up, (CurrentTarget.transform.position - transform.position).normalized) <= MinimumFiringAngle)
+                            StartCoroutine(Fire());
                 }
             }
         }
+
+        GameObjectHelper.AudioPauseCheck(ShootSfx);
     }
 
     protected virtual IEnumerator Fire()

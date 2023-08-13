@@ -4859,6 +4859,7 @@ GameObject:
   - component: {fileID: 885877264540161290}
   - component: {fileID: 2372099575778424235}
   - component: {fileID: 2372099575778424234}
+  - component: {fileID: 4165259315312118455}
   m_Layer: 7
   m_Name: Behemoth
   m_TagString: Enemy
@@ -5005,17 +5006,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d1b9ffdff916a34dbfc55eb95e30788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Acceleration: 200
-  RotationalSpeed: 100
-  MaxVelocity: 8
+  Acceleration: 300
+  RotationalSpeed: 150
+  MaxVelocity: 10
   FireDelay: 4
-  Range: 25
-  ProjectileLaunchSpeed: 3
+  Range: 30
+  ProjectileLaunchSpeed: 3.8
   MinimumFiringAngle: 25
   DespawnDistance: 200
-  NextWaypointDistance: 2
+  NextWaypointDistance: 1
   StunDuration: 0
-  Health: 175
+  Health: 200
   Damage: 6
   Projectile: {fileID: 6944717897172984037, guid: aa7ed137b8a463e4f80cb3270b756594, type: 3}
   EngineExhaust:
@@ -5024,10 +5025,10 @@ MonoBehaviour:
   - {fileID: 885877264792877748}
   Explosion: {fileID: 2372099575778424235}
   CanBeStunned: 0
-  Hit: {fileID: 0}
-  Death: {fileID: 0}
-  FireSound: {fileID: 0}
-  Engines: {fileID: 0}
+  HitSfx: {fileID: 0}
+  DeathSfx: {fileID: 4165259315312118455}
+  FireSfx: {fileID: 0}
+  EnginesSfx: {fileID: 4676634130986232519}
   Type: 3
   ProjectileHitMask:
     serializedVersion: 2
@@ -5036,14 +5037,14 @@ MonoBehaviour:
   StopSpeed: 0
   MissileTurnSpeed: 300
   MissileAcceleration: 10
-  MissileLockOnDistance: 3
-  MissileSeekingCone: 25
-  TurretLaserSpeed: 4
-  TurretCooldown: 1.5
-  TurretRange: 25
-  TurretRotationSpeed: 100
-  TurretMinimumFiringAngle: 45
-  TurretDamage: 1
+  MissileLockOnDistance: 4
+  MissileSeekingCone: 30
+  TurretLaserSpeed: 5
+  TurretCooldown: 1.25
+  TurretRange: 30
+  TurretRotationSpeed: 150
+  TurretMinimumFiringAngle: 50
+  TurretDamage: 2
   Turrets:
   - {fileID: 1732242383202522775}
   - {fileID: 1732242383239554685}
@@ -9914,6 +9915,102 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!82 &4165259315312118455
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885877264540161293}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: a3d657496f72b5641a3e8207c7effeae, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1.1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 100
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.09205584
+      outSlope: 0.09205584
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.16712327
+    - serializedVersion: 3
+      time: 1
+      value: 0.18533325
+      inSlope: -1.6667868
+      outSlope: -1.6667868
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.082191885
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &885877264565208868
 GameObject:
   m_ObjectHideFlags: 0
@@ -19547,6 +19644,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 885877265643866529}
+  - component: {fileID: 4676634130986232519}
   m_Layer: 0
   m_Name: Engines
   m_TagString: Untagged
@@ -19572,6 +19670,102 @@ Transform:
   m_Father: {fileID: 885877264540161294}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &4676634130986232519
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885877265643866528}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: fff90304a51852240967ba0c162a7f25, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 0.9
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 112
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 100
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.60915756
+      inSlope: -1.8378326
+      outSlope: -1.8378326
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.22548702
+    - serializedVersion: 3
+      time: 0.379776
+      value: 0.3726251
+      inSlope: -0.10813996
+      outSlope: -0.10813996
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.16821428
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1732242383202522772
 GameObject:
   m_ObjectHideFlags: 0
@@ -19700,7 +19894,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 9feb94dc81b5f804d994e58b29bc90c8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 1.1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -19708,9 +19902,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 100
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -19718,23 +19912,23 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      time: 0.01
+      value: 0.8083153
+      inSlope: -2.0647483
+      outSlope: -2.0647483
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0.14913972
     - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
+      time: 0.5675354
+      value: 0.37959838
+      inSlope: -0.057061378
+      outSlope: -0.057061378
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0.22678298
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -19743,7 +19937,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -19772,8 +19966,8 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1
+      time: 0.005306244
+      value: 1.011734
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -19911,7 +20105,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 9feb94dc81b5f804d994e58b29bc90c8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 1.1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -19919,9 +20113,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 100
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -19929,23 +20123,23 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      time: 0.01
+      value: 0.8083153
+      inSlope: -2.0647483
+      outSlope: -2.0647483
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0.14913972
     - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
+      time: 0.5675354
+      value: 0.37959838
+      inSlope: -0.057061378
+      outSlope: -0.057061378
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0.22678298
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -19954,7 +20148,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -19983,8 +20177,8 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1
+      time: 0.005306244
+      value: 1.011734
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -20122,7 +20316,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 9feb94dc81b5f804d994e58b29bc90c8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 1.1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -20130,9 +20324,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 100
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -20140,23 +20334,23 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      time: 0.01
+      value: 0.8083153
+      inSlope: -2.0647483
+      outSlope: -2.0647483
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0.14913972
     - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
+      time: 0.5675354
+      value: 0.37959838
+      inSlope: -0.057061378
+      outSlope: -0.057061378
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0.22678298
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -20165,7 +20359,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -20194,8 +20388,8 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1
+      time: 0.005306244
+      value: 1.011734
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -20333,7 +20527,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 9feb94dc81b5f804d994e58b29bc90c8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 1.1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -20341,9 +20535,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 100
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -20351,23 +20545,23 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      time: 0.01
+      value: 0.8083153
+      inSlope: -2.0647483
+      outSlope: -2.0647483
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0.14913972
     - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
+      time: 0.5675354
+      value: 0.37959838
+      inSlope: -0.057061378
+      outSlope: -0.057061378
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0.22678298
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -20376,7 +20570,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -20405,8 +20599,8 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1
+      time: 0.005306244
+      value: 1.011734
       inSlope: 0
       outSlope: 0
       tangentMode: 0

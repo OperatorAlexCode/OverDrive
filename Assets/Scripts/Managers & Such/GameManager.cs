@@ -19,16 +19,12 @@ public class GameManager : MonoBehaviour
     public bool UseController;
     public bool GamePaused;
     public bool SimpleSteering;
-    [SerializeField]
-    bool BeginWave;
+    [SerializeField] bool BeginWave;
 
     // String
-    [SerializeField]
-    string UseControllerKey = "UseController";
-    [SerializeField]
-    string SimpleSteeringKey = "SimpleSteering";
-    [SerializeField]
-    string RotationalSpeedKey = "RotateSpeed";
+    public string UseControllerKey = "UseController";
+    public string SimpleSteeringKey = "SimpleSteering";
+    public string RotationalSpeedKey = "RotateSpeed";
 
     // Other
     public int Wave;
@@ -109,10 +105,11 @@ public class GameManager : MonoBehaviour
 
             else
             {
-                List<Upgrade> upgrades = GetComponent<UpgradeManager>().GetUpgradeSet(3);
+                List<Upgrade> upgrades = GetComponent<UpgradeManager>().GetUpgradeSet(4);
                 GetComponent<UIManager>().DisplayUpgrades(upgrades);
                 Player.EnableDisableAutoStop(true);
                 Player.EnableDisableWeapons(true);
+                Player.EnableDisableAiming(true);
             }
         }
     }
@@ -123,6 +120,7 @@ public class GameManager : MonoBehaviour
         InWave = true;
         Player.EnableDisableAutoStop(false);
         Player.EnableDisableWeapons(false);
+        Player.EnableDisableAiming(false);
     }
 
     bool IsWaveDone()
@@ -190,7 +188,7 @@ public class GameManager : MonoBehaviour
         else
             SwitchToKeyboardControls();
 
-        PlayerPrefs.SetInt("UseController", Convert.ToInt32(UseController));
+        PlayerPrefs.SetInt(UseControllerKey, Convert.ToInt32(UseController));
         PlayerPrefs.Save();
     }
 
