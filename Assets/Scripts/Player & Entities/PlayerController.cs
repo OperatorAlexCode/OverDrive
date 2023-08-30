@@ -55,16 +55,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int ScattershotsAmount;
 
     // Bool | Ship
-    bool DisableHeat;
-    bool DisableMovement;
+    public bool DisableHeat;
+    public bool DisableMovement;
     bool AutoStop;
     bool UseController;
-    bool SimpleSteering;
     // Bool | Weapons
     bool CanFirePrimary = true;
     bool CanFireSecondary = true;
-    bool DisableWeapons;
-    bool DisableAiming;
+    public bool DisableWeapons;
+    public bool DisableAiming;
     // Bool | Other
     public bool IsDead;
     Dictionary<Ability, bool> IsAbilityAvailable;
@@ -104,8 +103,7 @@ public class PlayerController : MonoBehaviour
     public SecondaryWeapon SecondaryType;
     public PlayerInputActions PlayerControls;
     Ability AbilityInUse;
-    [SerializeField]
-    LayerMask ProjectileHitMask;
+    [SerializeField] LayerMask ProjectileHitMask;
 
     // Start is called before the first frame update
     void Start()

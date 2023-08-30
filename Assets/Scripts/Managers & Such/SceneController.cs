@@ -5,15 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public string GameSceneName = "InGame";
+    public string MainMenuSceneName = "MainMenu";
+
+    public void LoadMainMenu()
     {
-        
+        SceneManager.LoadScene(MainMenuSceneName);
     }
 
     public void LoadGameScene()
     {
-        SceneManager.LoadScene("InGame");
+        SceneManager.LoadScene(GameSceneName);
     }
 
     public void ExitGame()

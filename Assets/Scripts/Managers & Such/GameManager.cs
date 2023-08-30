@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public bool GamePaused;
     public bool SimpleSteering;
     [SerializeField] bool BeginWave;
+    bool[] PlayerVars = new bool[4];
 
     // String
     public string UseControllerKey = "UseController";
@@ -152,6 +153,7 @@ public class GameManager : MonoBehaviour
 
         if (Gamepad.current != null)
             InputSystem.DisableDevice(Gamepad.current);
+
         InputSystem.EnableDevice(Keyboard.current);
         InputSystem.EnableDevice(Mouse.current);
 
@@ -170,11 +172,27 @@ public class GameManager : MonoBehaviour
 
             uiMngr.DisplayPauseMenu(!GamePaused);
 
-            if (uiMngr.LastInterface == MenuUI.None)
+            //if (uiMngr.LastInterface == MenuUI.None)
+            //{
+            //    Player.EnableDisableHeat(!GamePaused);
+            //    Player.EnableDisableMovement(!GamePaused);
+            //    Player.EnableDisableWeapons(!GamePaused);
+            //    Player.EnableDisableAiming(!GamePaused);
+            //}
+
+            if (GamePaused)
             {
-                Player.EnableDisableHeat(!GamePaused);
-                Player.EnableDisableWeapons(!GamePaused);
-                Player.EnableDisableAiming(!GamePaused);
+                Player.DisableHeat=PlayerVars[0];
+                Player.DisableMovement=PlayerVars[1];
+                Player.DisableWeapons = PlayerVars[2];
+                Player.DisableAiming = PlayerVars[3];
+            }
+            else
+            {
+                PlayerVars[0] = Player.DisableHeat;
+                PlayerVars[1] = Player.DisableMovement;
+                PlayerVars[2] = Player.DisableWeapons;
+                PlayerVars[3] = Player.DisableAiming;
             }
 
             GamePaused = !GamePaused;

@@ -11,20 +11,13 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     // GameObject
-    [SerializeField]
-    GameObject GameHud;
-    [SerializeField]
-    GameObject GameOverScreen;
-    [SerializeField]
-    GameObject UpgradeCard;
-    [SerializeField]
-    GameObject UpgradeSelection;
-    [SerializeField]
-    GameObject PauseMenu;
-    [SerializeField]
-    GameObject SettingsMenu;
-    [SerializeField]
-    GameObject WinScreen;
+    [SerializeField] GameObject GameHud;
+    [SerializeField] GameObject GameOverScreen;
+    [SerializeField] GameObject UpgradeCard;
+    [SerializeField] GameObject UpgradeSelection;
+    [SerializeField] GameObject PauseMenu;
+    [SerializeField] GameObject SettingsMenu;
+    [SerializeField] GameObject WinScreen;
     public List<GameObject> PreviouslySelected;
 
     // Color | Upgrades
@@ -48,6 +41,7 @@ public class UIManager : MonoBehaviour
     // MenuUI
     public MenuUI CurrentInterface;
     public MenuUI LastInterface;
+    public List<MenuUI> PreviousInterfaces;
 
     // Texture2D
     [SerializeField] Texture2D AimCursor;
@@ -125,6 +119,8 @@ public class UIManager : MonoBehaviour
 
         ChangeToAimCursor();
         CurrentInterface = MenuUI.None;
+        PreviousInterfaces = new();
+        PreviousInterfaces.Add(MenuUI.None);
     }
 
     // Update is called once per frame

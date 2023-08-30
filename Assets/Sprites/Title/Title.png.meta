@@ -83,10 +83,10 @@ TextureImporter:
       name: Title0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 73
-        width: 86
-        height: 24
+        x: 1
+        y: 69
+        width: 90
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -104,10 +104,10 @@ TextureImporter:
       name: Title1
       rect:
         serializedVersion: 2
-        x: 21
-        y: 37
-        width: 51
-        height: 29
+        x: 1
+        y: 35
+        width: 90
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,10 +125,10 @@ TextureImporter:
       name: Title2
       rect:
         serializedVersion: 2
-        x: 13
-        y: 4
-        width: 66
-        height: 27
+        x: 1
+        y: 1
+        width: 90
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
