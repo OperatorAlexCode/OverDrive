@@ -35,9 +35,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] Color TimerBacking;
     [SerializeField] Color TimerOverlay;
 
-    // Color | Other
-    [SerializeField] Color[] HeatBarGradientColors;
-
     // MenuUI
     public MenuUI CurrentInterface;
     public MenuUI LastInterface;
@@ -46,19 +43,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] Texture2D AimCursor;
     [SerializeField] Texture2D DefaultCursor;
 
-    // Gradient
-    Gradient HeatBarGradient;
-    [SerializeField] Gradient HealthBarGradient;
-
-    // Slider
-    [SerializeField] Slider HeatBar;
-    [SerializeField] Slider HealthBar;
-    [SerializeField] Slider BossHealthBar;
-
-    // Image
-    Image HeatBarFill;
-    Image HealthBarFill;
-    Image BossHealthBarFill;
+    // UIBar
+    [SerializeField] UIBar HeatBar;
+    [SerializeField] UIBar HealthBar;
+    [SerializeField] UIBar BossHealthBar;
 
     // Timer
     public Timer PrimaryTimer;
@@ -76,26 +64,6 @@ public class UIManager : MonoBehaviour
         SettingsMenu.transform.Find("Options").Find(GameObjectNames.ControlerToggle).GetComponent<Toggle>().isOn = GetComponent<GameManager>().UseController;
         //SettingsMenu.transform.Find("Options").Find(GameObjectNames.SimpleControlsToggle).GetComponent<Toggle>().isOn = GetComponent<GameManager>().SimpleSteering;
         SettingsMenu.transform.Find("Options").Find(GameObjectNames.RotateSpeedSlider).Find("Slider").GetComponent<Slider>().value = Player.RotationalSpeed;
-
-        HeatBarFill = GetSliderFill(HeatBar);
-        HealthBarFill = GetSliderFill(HealthBar);
-        BossHealthBarFill = GetSliderFill(BossHealthBar);
-
-        // Created the gradient for the Heat bar
-        HeatBarGradient = new();
-
-        var colorKey = new GradientColorKey[HeatBarGradientColors.Count()];
-
-        colorKey[0].color = HeatBarGradientColors[0];
-        colorKey[0].time = 0;
-
-        for (int x = 1; x < HeatBarGradientColors.Count(); x++)
-        {
-            colorKey[x].color = HeatBarGradientColors[x];
-            colorKey[x].time = (1f / HeatBarGradientColors.Count()) * (float)x;
-        }
-
-        HeatBarGradient.SetKeys(colorKey, new GradientAlphaKey[0]);
 
         // Sets the background and backing for each timer
         List<Timer> timers = new()
@@ -125,24 +93,15 @@ public class UIManager : MonoBehaviour
     {
         if (Player != null)
         {
-            // Sets the max values of the heat and health bars if they aren't the same as for the player
-            if (HeatBar.maxValue != Player.MaxHeat)
-                HeatBar.maxValue = Player.MaxHeat;
+            HeatBar.SetMax(Player.MaxHeat);
+            HealthBar.SetMax(Player.MaxHealth);
 
-            if (HealthBar.maxValue != Player.MaxHealth)
-                HealthBar.maxValue = Player.MaxHealth;
-
-            // Sets the bar's values
-            HeatBar.value = Player.Heat;
-            HealthBar.value = Player.Health;
+            HeatBar.Set(Player.Heat);
+            HealthBar.Set(Player.Health);
             HealthText.text = $"{Player.Health}";
 
-            // Changes the color to the health and heat bar to fit their respective gradients
-            HeatBarFill.color = HeatBarGradient.Evaluate(Player.Heat / Player.MaxHeat);
-            HealthBarFill.color = HealthBarGradient.Evaluate((float)Player.Health / (float)Player.MaxHealth);
-
             //// Wether the player can interact with the controler toggle if 
-            //SettingsMenu.transform.Find("Options").Find(GameObjectNames.ControlerToggle).GetComponent<Toggle>().interactable = Gamepad.current != null;
+            SettingsMenu.transform.Find("Options").Find(GameObjectNames.ControlerToggle).GetComponent<Toggle>().interactable = Gamepad.current != null;
         }
     }
 
@@ -377,13 +336,12 @@ public class UIManager : MonoBehaviour
     {
         Drone bossEnemy = boss.GetComponent<Drone>();
 
-        BossHealthBar.maxValue = bossEnemy.GetCurrentHealth();
         BossHealthBar.gameObject.SetActive(true);
+        BossHealthBar.SetMax(bossEnemy.GetCurrentHealth());
 
         while (boss != null)
         {
-            BossHealthBar.value = bossEnemy.GetCurrentHealth();
-            BossHealthBarFill.color = HealthBarGradient.Evaluate((float)bossEnemy.GetCurrentHealth() / (float)BossHealthBar.maxValue);
+            BossHealthBar.Set(bossEnemy.GetCurrentHealth());
             yield return new WaitForSeconds(.1f);
         }
 
@@ -404,11 +362,6 @@ public class UIManager : MonoBehaviour
     {
         DisplayHud(false);
         WinScreen.SetActive(true);
-    }
-
-    Image GetSliderFill(Slider slider)
-    {
-        return slider.GetComponent<Slider>().fillRect.GetComponent<Image>();
     }
 }
 

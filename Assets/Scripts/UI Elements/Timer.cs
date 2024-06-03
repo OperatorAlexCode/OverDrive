@@ -5,14 +5,10 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    [SerializeField]
-    Image Background;
-    [SerializeField]
-    Image Icon;
-    [SerializeField]
-    Image Backing;
-    [SerializeField]
-    Image Overlay;
+    [SerializeField] Image Background;
+    [SerializeField] Image Icon;
+    [SerializeField] Image Backing;
+    [SerializeField] Image Overlay;
 
     /// <summary>
     /// Sets how much the timer is filled in so 1f would fill it completely, 0.5f would fill it half and 0f would not fill anything

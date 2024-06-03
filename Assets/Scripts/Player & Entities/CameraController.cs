@@ -5,17 +5,15 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     // Int
-    [SerializeField]
-    float MaxProjectionSize;
+    [SerializeField] float MaxProjectionSize;
     float StartProjectionSize;
 
     // Other
-    [SerializeField]
-    GameObject FollowObject;
-    [SerializeField]
-    bool AccelerationZoomOut;
+    [SerializeField] GameObject FollowObject;
+    [SerializeField] bool AccelerationZoomOut;
     Camera GameCamera;
     Rect Bounds;
+    [SerializeField] Transform LookAhead;
 
     // Start is called before the first frame update
     void Start()
