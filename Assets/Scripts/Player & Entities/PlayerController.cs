@@ -120,6 +120,12 @@ public class PlayerController : MonoBehaviour
         IsAbilityAvailable.Add(Ability.RepairKit, true);
         IsAbilityAvailable.Add(Ability.HeatVent, true);
 
+        SoundManager soundManager = GameObject.Find(GameObjectNames.Managers).GetComponent<SoundManager>();
+
+        soundManager.AddAudioSource(TurretFireSfx, SourceType.Sfx);
+        soundManager.AddAudioSource(EnginesSfx, SourceType.Sfx);
+        //soundManager.AddAudioSource(DeathSfx, SourceType.Sfx);
+
         //ChangeWeaponType(SecondaryWeapon.Flak);
     }
 
@@ -777,6 +783,15 @@ public class PlayerController : MonoBehaviour
 
         timer.Set(1);
         timer.SetOverLay(false);
+    }
+
+    private void OnDestroy()
+    {
+        SoundManager soundManager = GameObject.Find(GameObjectNames.Managers).GetComponent<SoundManager>();
+
+        soundManager.RemoveAudioSource(TurretFireSfx, SourceType.Sfx);
+        soundManager.RemoveAudioSource(EnginesSfx, SourceType.Sfx);
+        //soundManager.RemoveAudioSource(DeathSfx, SourceType.Sfx);
     }
 }
 

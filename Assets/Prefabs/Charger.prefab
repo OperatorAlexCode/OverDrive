@@ -5132,7 +5132,7 @@ MonoBehaviour:
   Acceleration: 200
   RotationalSpeed: 100
   MaxVelocity: 13
-  FireDelay: 0
+  FireDelay: Infinity
   Range: 5
   ProjectileLaunchSpeed: 0
   MinimumFiringAngle: 0

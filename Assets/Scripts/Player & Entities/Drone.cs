@@ -60,6 +60,13 @@ public class Drone : MonoBehaviour
     protected void Start()
     {
         EnemyInitialization();
+
+        SoundManager soundManager = GameObject.Find(GameObjectNames.Managers).GetComponent<SoundManager>();
+
+        soundManager.AddAudioSource(FireSfx, SourceType.Sfx);
+        soundManager.AddAudioSource(DeathSfx, SourceType.Sfx);
+        soundManager.AddAudioSource(EnginesSfx, SourceType.Sfx);
+
         //Type = EnemyType.Drone;
     }
 
@@ -290,5 +297,14 @@ public class Drone : MonoBehaviour
     public int GetCurrentHealth()
     {
         return Health;
+    }
+
+    protected void OnDestroy()
+    {
+        SoundManager soundManager = GameObject.Find(GameObjectNames.Managers).GetComponent<SoundManager>();
+
+        soundManager.RemoveAudioSource(FireSfx, SourceType.Sfx);
+        soundManager.RemoveAudioSource(DeathSfx, SourceType.Sfx);
+        soundManager.RemoveAudioSource(EnginesSfx, SourceType.Sfx);
     }
 }

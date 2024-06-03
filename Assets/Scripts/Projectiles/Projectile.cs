@@ -116,4 +116,9 @@ public class Projectile : MonoBehaviour
     {
         ColliderTriggerLogic(collision);
     }
+
+    private void OnDestroy()
+    {
+        GameObject.Find(GameObjectNames.Managers).GetComponent<SoundManager>().RemoveAudioSource(HitSfx,SourceType.Sfx);
+    }
 }

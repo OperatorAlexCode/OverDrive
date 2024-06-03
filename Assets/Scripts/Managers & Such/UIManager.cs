@@ -41,7 +41,6 @@ public class UIManager : MonoBehaviour
     // MenuUI
     public MenuUI CurrentInterface;
     public MenuUI LastInterface;
-    public List<MenuUI> PreviousInterfaces;
 
     // Texture2D
     [SerializeField] Texture2D AimCursor;
@@ -119,8 +118,6 @@ public class UIManager : MonoBehaviour
 
         ChangeToAimCursor();
         CurrentInterface = MenuUI.None;
-        PreviousInterfaces = new();
-        PreviousInterfaces.Add(MenuUI.None);
     }
 
     // Update is called once per frame

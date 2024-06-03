@@ -36,15 +36,21 @@ public class Torpedo : Projectile
     public override void ProjectileDeath(bool silentDestuction = false)
     {
         if (silentDestuction)
+        {
+            SoundManager soundManager = GameObject.Find(GameObjectNames.Managers).GetComponent<SoundManager>();
+            soundManager.RemoveAudioSource(EngineSfx, SourceType.Sfx);
+            soundManager.RemoveAudioSource(HitSfx, SourceType.Sfx);
             Destroy(gameObject);
+        }
         else
         {
             transform.Find("Engine").GetComponent<ParticleSystem>().Stop(true, ParticleSystemStopBehavior.StopEmitting);
             transform.Find("Engine").GetComponent<ParticleSystem>().gameObject.SetActive(false);
             transform.Find("Coloration").gameObject.SetActive(false);
             transform.Find("Body").gameObject.SetActive(false);
-            HitSfx.Play();
+            transform.GetComponent<BoxCollider2D>().enabled = false;
             EngineSfx.Stop();
+            HitSfx.Play();
             Explosion.Play();
         }
     }
@@ -90,6 +96,13 @@ public class Torpedo : Projectile
         EngineSfx.Play();
 
         base.Fire();
+    }
+
+    private void OnDestroy()
+    {
+        SoundManager soundManager = GameObject.Find(GameObjectNames.Managers).GetComponent<SoundManager>();
+        soundManager.RemoveAudioSource(EngineSfx, SourceType.Sfx);
+        soundManager.RemoveAudioSource(HitSfx, SourceType.Sfx);
     }
 }
 

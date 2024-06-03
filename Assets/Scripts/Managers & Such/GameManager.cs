@@ -22,10 +22,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] bool BeginWave;
     bool[] PlayerVars = new bool[4];
 
-    // String
-    public string UseControllerKey = "UseController";
-    public string SimpleSteeringKey = "SimpleSteering";
-    public string RotationalSpeedKey = "RotateSpeed";
+    //// String
+    //public string UseControllerKey = "UseController";
+    //public string SimpleSteeringKey = "SimpleSteering";
+    //public string RotationalSpeedKey = "RotateSpeed";
 
     // Other
     public int Wave;
@@ -60,14 +60,14 @@ public class GameManager : MonoBehaviour
         Player.SetColor(PlayerShipColor);
 
         // Load settings from playerprefs
-        if (PlayerPrefs.HasKey(UseControllerKey))
-            UseController = Convert.ToBoolean(PlayerPrefs.GetInt(UseControllerKey));
+        if (PlayerPrefs.HasKey(PlayerPrefkeys.UseControllerKey))
+            UseController = Convert.ToBoolean(PlayerPrefs.GetInt(PlayerPrefkeys.UseControllerKey));
 
-        if (PlayerPrefs.HasKey(SimpleSteeringKey))
-            SimpleSteering = Convert.ToBoolean(PlayerPrefs.GetInt(SimpleSteeringKey));
+        if (PlayerPrefs.HasKey(PlayerPrefkeys.SimpleSteeringKey))
+            SimpleSteering = Convert.ToBoolean(PlayerPrefs.GetInt(PlayerPrefkeys.SimpleSteeringKey));
 
-        if (PlayerPrefs.HasKey(RotationalSpeedKey))
-            Player.RotationalSpeed = PlayerPrefs.GetFloat(RotationalSpeedKey);
+        if (PlayerPrefs.HasKey(PlayerPrefkeys.RotationalSpeedKey))
+            Player.RotationalSpeed = PlayerPrefs.GetFloat(PlayerPrefkeys.RotationalSpeedKey);
 
         // If the player want to use a controller and a controller is plugged in then hide the cursor, disable mouse & keyboard and enable controller
         if (UseController & Gamepad.current != null)
@@ -79,16 +79,20 @@ public class GameManager : MonoBehaviour
             InputSystem.DisableDevice(Mouse.current);
             InputSystem.EnableDevice(Gamepad.current);
         }
+
         // Otherwise disable controller if there is one connected
         else if (Gamepad.current != null)
         {
             InputSystem.DisableDevice(Gamepad.current);
             InputSystem.EnableDevice(Keyboard.current);
             InputSystem.EnableDevice(Mouse.current);
+            UseController = false;
         }
 
         // Spawn in debris inside the play area
         GetComponent<DebrisSpawner>().SpawnInArea(30, PlayArea);
+
+        GetComponent<SoundManager>().UpdateVolumeAll();
 
         if (BeginWave)
             StartWave();
@@ -182,8 +186,8 @@ public class GameManager : MonoBehaviour
 
             if (GamePaused)
             {
-                Player.DisableHeat=PlayerVars[0];
-                Player.DisableMovement=PlayerVars[1];
+                Player.DisableHeat = PlayerVars[0];
+                Player.DisableMovement = PlayerVars[1];
                 Player.DisableWeapons = PlayerVars[2];
                 Player.DisableAiming = PlayerVars[3];
             }
@@ -206,7 +210,7 @@ public class GameManager : MonoBehaviour
         else
             SwitchToKeyboardControls();
 
-        PlayerPrefs.SetInt(UseControllerKey, Convert.ToInt32(UseController));
+        PlayerPrefs.SetInt(PlayerPrefkeys.UseControllerKey, Convert.ToInt32(UseController));
         PlayerPrefs.Save();
     }
 
@@ -220,15 +224,15 @@ public class GameManager : MonoBehaviour
         if (GameObject.Find(GameObjectNames.Player) != null)
             GameObject.Find(GameObjectNames.Player).GetComponent<PlayerController>().RotationalSpeed = newValue;
 
-        PlayerPrefs.SetFloat(RotationalSpeedKey, newValue);
+        PlayerPrefs.SetFloat(PlayerPrefkeys.RotationalSpeedKey, newValue);
         PlayerPrefs.Save();
     }
 
     public void ExitGame()
     {
-        PlayerPrefs.SetInt(UseControllerKey, Convert.ToInt32(UseController));
-        PlayerPrefs.SetInt(SimpleSteeringKey, Convert.ToInt32(SimpleSteering));
-        PlayerPrefs.SetFloat(RotationalSpeedKey, Player.RotationalSpeed);
+        PlayerPrefs.SetInt(PlayerPrefkeys.UseControllerKey, Convert.ToInt32(UseController));
+        PlayerPrefs.SetInt(PlayerPrefkeys.SimpleSteeringKey, Convert.ToInt32(SimpleSteering));
+        PlayerPrefs.SetFloat(PlayerPrefkeys.RotationalSpeedKey, Player.RotationalSpeed);
         PlayerPrefs.Save();
 
         GetComponent<SceneController>().ExitGame();
