@@ -7,13 +7,13 @@ public class CameraController : MonoBehaviour
     // Int
     [SerializeField] float MaxProjectionSize;
     float StartProjectionSize;
+    [SerializeField] float LookAhead;
 
     // Other
     [SerializeField] GameObject FollowObject;
     [SerializeField] bool AccelerationZoomOut;
     Camera GameCamera;
     Rect Bounds;
-    [SerializeField] Transform LookAhead;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +39,9 @@ public class CameraController : MonoBehaviour
 
                     float t = Mathf.InverseLerp(0, player.GetMaxVelocity(), player.GetVelocity());
                     GameCamera.orthographicSize = Mathf.SmoothStep(StartProjectionSize, MaxProjectionSize, t);
+
+                    Vector2 lookAhead = Vector2.Lerp(transform.position, player.transform.position + player.transform.up * LookAhead, t);
+                    transform.position = new(lookAhead.x, lookAhead.y, transform.position.z);
                 }
 
                 else if (GameCamera.orthographicSize != StartProjectionSize)

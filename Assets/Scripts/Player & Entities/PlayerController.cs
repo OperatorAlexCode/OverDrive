@@ -59,11 +59,13 @@ public class PlayerController : MonoBehaviour
     public bool DisableMovement;
     bool AutoStop;
     bool UseController;
+
     // Bool | Weapons
     bool CanFirePrimary = true;
     bool CanFireSecondary = true;
     public bool DisableWeapons;
     public bool DisableAiming;
+
     // Bool | Other
     public bool IsDead;
     Dictionary<Ability, bool> IsAbilityAvailable;
@@ -116,9 +118,11 @@ public class PlayerController : MonoBehaviour
         TorpedoWarhead = new Warhead();
         TorpedoWarhead.Set(SecondaryDamage, "Enemy");
 
-        IsAbilityAvailable = new Dictionary<Ability, bool>();
-        IsAbilityAvailable.Add(Ability.RepairKit, true);
-        IsAbilityAvailable.Add(Ability.HeatVent, true);
+        IsAbilityAvailable = new Dictionary<Ability, bool>
+        {
+            { Ability.RepairKit, true },
+            { Ability.HeatVent, true }
+        };
 
         SoundManager soundManager = GameObject.Find(GameObjectNames.Managers).GetComponent<SoundManager>();
 
@@ -753,15 +757,6 @@ public class PlayerController : MonoBehaviour
             yield return StartCoroutine(Cooldown(HeatVentCooldown, timer));
             IsAbilityAvailable[Ability.HeatVent] = true;
         }
-    }
-
-    /// <summary>
-    /// Coroutine for waiting a certain amount of seconds
-    /// </summary>
-    /// <param name="duration">how long cooldown will last</param>
-    IEnumerator Cooldown(float duration)
-    {
-        yield return new WaitForSeconds(duration);
     }
 
     /// <summary>
