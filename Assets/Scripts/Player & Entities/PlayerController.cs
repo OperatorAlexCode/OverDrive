@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
+using UnityEditor.Rendering.LookDev;
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float PrimairyHeatCost;
     [SerializeField] float PrimaryFireDelay;
     [SerializeField] float PrimaryLaunchSpeed;
-    [SerializeField][Range(5f, 40f)] float ScattershotSpread;
+    [SerializeField][Range(0f, 40f)] float ScattershotSpread;
     [SerializeField] float TurretRotationSpeedController;
 
     // Float | Secondary
@@ -82,16 +83,18 @@ public class PlayerController : MonoBehaviour
     Vector2 MovementVector = Vector2.zero;
 
     // InputActions
-    InputAction Move;
+    /*InputAction Move;
     InputAction Look;
     InputAction PrimaryFire;
     InputAction SecondaryFire;
     InputAction Ability1;
-    InputAction Ability2;
+    InputAction Ability2;*/
 
     // ParticleSystem
-    [SerializeField] ParticleSystem[] EngineExhaust;
+    //[SerializeField] ParticleSystem[] EngineExhaust;
+    [SerializeField] PolyParticleSystem EngineExhaust;
     [SerializeField] ParticleSystem Explosion;
+    [SerializeField] ParticleSystem VentExhaust;
 
     // Audio Sources
     [SerializeField] AudioSource TurretFireSfx;
@@ -103,7 +106,7 @@ public class PlayerController : MonoBehaviour
     Warhead TorpedoWarhead;
     public PrimaryWeapon PrimaryType;
     public SecondaryWeapon SecondaryType;
-    public PlayerInputActions PlayerControls;
+    //public PlayerInputActions PlayerControls;
     Ability AbilityInUse;
     [SerializeField] LayerMask ProjectileHitMask;
 
@@ -135,11 +138,11 @@ public class PlayerController : MonoBehaviour
 
     public void Awake()
     {
-        PlayerControls = new();
+        //PlayerControls = new();
         Turret = transform.Find("Turret").gameObject;
     }
 
-    private void OnEnable()
+    /*private void OnEnable()
     {
         Move = PlayerControls.Player.Move;
         Move.Enable();
@@ -170,9 +173,9 @@ public class PlayerController : MonoBehaviour
             if (GameObject.Find("Managers").GetComponent<UIManager>().CurrentInterface == MenuUI.None)
                 StartCoroutine(VentHeat());
         };
-    }
+    }*/
 
-    private void OnDisable()
+    /*private void OnDisable()
     {
         Move.Disable();
         Look.Disable();
@@ -180,7 +183,7 @@ public class PlayerController : MonoBehaviour
         SecondaryFire.Disable();
         Ability1.Disable();
         Ability2.Disable();
-    }
+    }*/
 
     // Update is called once per frame
     void Update()
@@ -202,7 +205,7 @@ public class PlayerController : MonoBehaviour
             {
                 SlowDown();
                 MovementVector = Vector2.zero;
-                EnableDisableExhaust(false);
+                //EnableDisableExhaust(false);
             }
 
             if (!DisableAiming)
@@ -211,17 +214,9 @@ public class PlayerController : MonoBehaviour
                 if (!UseController)
                     AimDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
 
-                // Sets AimDirection to where the left controller stick is pointing if a controller is connected
-                else if (Gamepad.current != null)
-                    if (Look.ReadValue<Vector2>() != Vector2.zero)
-                        AimDirection = Look.ReadValue<Vector2>();
-
                 // Sets turret to face towards AimDirection
                 Turret.transform.up = AimDirection;
             }
-
-            if (!DisableMovement && !AutoStop)
-                MovementVector = Move.ReadValue<Vector2>();
 
             if (!DisableHeat)
             {
@@ -294,7 +289,48 @@ public class PlayerController : MonoBehaviour
         //AudioPauseCheck(HitSfx);
     }
 
+    #region Input Functions
+    public void Move(InputAction.CallbackContext context)
+    {
+        if (!DisableMovement && !AutoStop)
+            MovementVector = context.ReadValue<Vector2>();
+    }
+
+    public void Look(InputAction.CallbackContext context)
+    {
+        if (!DisableAiming && Gamepad.current != null)
+        {
+            // Sets AimDirection to where the left controller stick is pointing if a controller is connected
+            if (context.ReadValue<Vector2>() != Vector2.zero)
+                AimDirection = context.ReadValue<Vector2>();
+        }
+    }
+
+    public void PrimaryFire(InputAction.CallbackContext context)
+    {
+        StartCoroutine(FirePrimary());
+    }
+
+    public void SecondaryFire(InputAction.CallbackContext context)
+    {
+        StartCoroutine(FireSecondary());
+    }
+
+    public void Ability1(InputAction.CallbackContext context)
+    {
+        if (GameObject.Find("Managers").GetComponent<UIManager>().CurrentInterface == MenuUI.None)
+            StartCoroutine(Repair());
+    }
+
+    public void Ability2(InputAction.CallbackContext context)
+    {
+        if (GameObject.Find("Managers").GetComponent<UIManager>().CurrentInterface == MenuUI.None)
+            StartCoroutine(VentHeat());
+    }
+    #endregion
+
     #region Weapon Functions
+
     IEnumerator FirePrimary()
     {
         if (CanFirePrimary && !DisableWeapons)
@@ -453,13 +489,12 @@ public class PlayerController : MonoBehaviour
         DisableAiming = true;
         IsDead = true;
         Cursor.visible = false;
-        EnableDisableExhaust(false);
+        //EnableDisableExhaust(false);
 
         GameObject.Find("Managers").GetComponent<UIManager>().DisplayHud(false);
 
         if (Health <= 0)
         {
-            EnableDisableExhaust(false);
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             transform.Find("Turret").GetComponent<SpriteRenderer>().enabled = false;
             Rb.velocity = Vector2.zero;
@@ -678,7 +713,7 @@ public class PlayerController : MonoBehaviour
         DisableAiming = newValue;
     }
 
-    void EnableDisableExhaust(bool enable)
+    /*void EnableDisableExhaust(bool enable)
     {
         if (EngineExhaust[0].emission.enabled != enable)
             foreach (ParticleSystem exhaust in EngineExhaust)
@@ -686,7 +721,7 @@ public class PlayerController : MonoBehaviour
                 var emission = exhaust.emission;
                 emission.enabled = enable;
             }
-    }
+    }*/
 
     public void Disable(bool newValue)
     {
@@ -700,11 +735,17 @@ public class PlayerController : MonoBehaviour
     void EnableEngines(bool enable)
     {
         if (enable && !EnginesSfx.isPlaying)
+        {
             EnginesSfx.Play();
+            EngineExhaust.Play();
+        }
         else if (!enable)
+        {
             EnginesSfx.Stop();
+            EngineExhaust.Stop();
+        }
 
-        EnableDisableExhaust(enable);
+        //EnableDisableExhaust(enable);
     }
 
     #endregion
@@ -729,10 +770,15 @@ public class PlayerController : MonoBehaviour
     {
         if (AbilityInUse == Ability.None && IsAbilityAvailable[Ability.HeatVent] == true)
         {
+            VentExhaust.Play();
             Timer timer = GameObject.Find("Managers").GetComponent<UIManager>().Ability2Timer;
 
             IsAbilityAvailable[Ability.HeatVent] = false;
             AbilityInUse = Ability.HeatVent;
+
+            bool originalValue1 = DisableHeat;
+            bool originalValue2 = AutoStop;
+
             DisableHeat = true;
             AutoStop = true;
 
@@ -751,8 +797,14 @@ public class PlayerController : MonoBehaviour
 
             timer.Set(0);
             AbilityInUse = Ability.None;
-            DisableHeat = false;
-            AutoStop = false;
+            
+            if (!originalValue1)
+                DisableHeat = false;
+
+            if (!originalValue2)
+                AutoStop = false;
+
+            VentExhaust.Stop();
 
             yield return StartCoroutine(Cooldown(HeatVentCooldown, timer));
             IsAbilityAvailable[Ability.HeatVent] = true;

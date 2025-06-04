@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5742959652689677717}
   - component: {fileID: 5742959652689677716}
   - component: {fileID: 2463168493579557758}
+  - component: {fileID: -2170456044534190955}
   m_Layer: 9
   m_Name: Asteroid
   m_TagString: Debris
@@ -76,12 +77,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 964c6dbdb70e0904f92f78cc41227e14, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -140,3 +141,20 @@ MonoBehaviour:
   uniqueID: 1013117863624589326
   updateError: 0.5
   checkTime: 0.2
+--- !u!114 &-2170456044534190955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5742959652689677718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b1ea51171495204981d6521872e313f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionDamage: 1
+  MinCollisionSpeed: 2
+  CollisionLayers:
+    serializedVersion: 2
+    m_Bits: 448

@@ -63,9 +63,14 @@ public class Drone : MonoBehaviour
 
         SoundManager soundManager = GameObject.Find(GameObjectNames.Managers).GetComponent<SoundManager>();
 
-        soundManager.AddAudioSource(FireSfx, SourceType.Sfx);
-        soundManager.AddAudioSource(DeathSfx, SourceType.Sfx);
-        soundManager.AddAudioSource(EnginesSfx, SourceType.Sfx);
+        if (FireSfx != null)
+            soundManager.AddAudioSource(FireSfx, SourceType.Sfx);
+
+        if (DeathSfx != null)
+            soundManager.AddAudioSource(DeathSfx, SourceType.Sfx);
+
+        if (EnginesSfx != null)
+            soundManager.AddAudioSource(EnginesSfx, SourceType.Sfx);
 
         //Type = EnemyType.Drone;
     }

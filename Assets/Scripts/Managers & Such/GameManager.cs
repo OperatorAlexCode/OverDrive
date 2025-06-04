@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using Pathfinding;
+using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviour
     public PlayerInputActions PlayerControls;
     public Rect PlayArea;
 
-    private void OnEnable()
+    /*private void OnEnable()
     {
         PauseAction = PlayerControls.Player.Pause;
         PauseAction.Enable();
@@ -50,7 +51,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         PlayerControls = new();
-    }
+    }*/
 
     // Start is called before the first frame update
     void Start()
@@ -75,17 +76,20 @@ public class GameManager : MonoBehaviour
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
 
-            InputSystem.DisableDevice(Keyboard.current);
-            InputSystem.DisableDevice(Mouse.current);
-            InputSystem.EnableDevice(Gamepad.current);
+            //InputSystem.DisableDevice(Keyboard.current);
+            //InputSystem.DisableDevice(Mouse.current);
+            //InputSystem.EnableDevice(Gamepad.current);
+
+            PlayerInput.all[0].SwitchCurrentControlScheme(Gamepad.current);
         }
 
         // Otherwise disable controller if there is one connected
         else if (Gamepad.current != null)
         {
-            InputSystem.DisableDevice(Gamepad.current);
-            InputSystem.EnableDevice(Keyboard.current);
-            InputSystem.EnableDevice(Mouse.current);
+            //InputSystem.DisableDevice(Gamepad.current);
+            //InputSystem.EnableDevice(Keyboard.current);
+            //InputSystem.EnableDevice(Mouse.current);
+            PlayerInput.all[0].SwitchCurrentControlScheme(Keyboard.current, Mouse.current);
             UseController = false;
         }
 
@@ -101,6 +105,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PlayerInput.all[0].currentControlScheme == "Gamepad" && Gamepad.current == null)
+            SwitchToKeyboardControls();
+
+        /*else if (PlayerInput.all[0].currentControlScheme == "Keyboar&Mouse" && Gamepad.current != null)
+            SwitchToGamepadControls();*/
+
         if (IsWaveDone())
         {
             InWave = false;
@@ -138,11 +148,19 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        GetComponent<UIManager>().SetControlerToggleSelected();
+        UIManager ui = GetComponent<UIManager>();
 
-        InputSystem.DisableDevice(Keyboard.current);
-        InputSystem.DisableDevice(Mouse.current);
-        InputSystem.EnableDevice(Gamepad.current);
+        if (ui.CurrentInterface == MenuUI.Settings)
+            ui.SetControlerToggleSelected();
+
+        else if (EventSystem.current.currentSelectedGameObject != null)
+            ui.SetSelectedUIElement(ui.CurrentInterface);
+
+        //InputSystem.DisableDevice(Keyboard.current);
+        //InputSystem.DisableDevice(Mouse.current);
+        //InputSystem.EnableDevice(Gamepad.current);
+
+        PlayerInput.all[0].SwitchCurrentControlScheme(Gamepad.current);
 
         UseController = true;
     }
@@ -155,11 +173,13 @@ public class GameManager : MonoBehaviour
         if (EventSystem.current.currentSelectedGameObject != null)
             EventSystem.current.SetSelectedGameObject(null);
 
-        if (Gamepad.current != null)
+        /*if (Gamepad.current != null)
             InputSystem.DisableDevice(Gamepad.current);
 
         InputSystem.EnableDevice(Keyboard.current);
-        InputSystem.EnableDevice(Mouse.current);
+        InputSystem.EnableDevice(Mouse.current);*/
+
+        PlayerInput.all[0].SwitchCurrentControlScheme(Keyboard.current, Mouse.current);
 
         UseController = false;
     }
@@ -244,5 +264,24 @@ public class GameManager : MonoBehaviour
         Player.enabled = false;
         GetComponent<DebrisSpawner>().ClearAllDebris();
         GetComponent<UIManager>().DisplayWinScreen();
+    }
+
+    public void DeviceLost(PlayerInput input)
+    {
+        input.SwitchCurrentControlScheme(Keyboard.current,Mouse.current);
+    }
+
+    public void DeviceRegained(PlayerInput input)
+    {
+        input.SwitchCurrentControlScheme(Gamepad.current);
+    }
+
+    public void ControlsChanged(PlayerInput input)
+    {
+        if (Gamepad.current != null)
+            SwitchToGamepadControls();
+
+        else
+            SwitchToKeyboardControls();
     }
 }

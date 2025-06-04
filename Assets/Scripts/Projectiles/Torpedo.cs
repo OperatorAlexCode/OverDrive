@@ -29,8 +29,10 @@ public class Torpedo : Projectile
 
     public override void TargetHit(GameObject target)
     {
-        Damage = Payload.Damage;
-        base.TargetHit(target);
+        //Damage = Payload.Damage;
+        //base.TargetHit(target);
+        Payload.OnHit(target);
+        ToBeDestroyed = true;
     }
 
     public override void ProjectileDeath(bool silentDestuction = false)
@@ -134,6 +136,27 @@ public class Warhead
     {
         Damage = damage;
         TargetTag = targetTag;
+    }
+
+    public virtual void OnHit(GameObject target)
+    {
+        switch (target.tag)
+        {
+            case "Player":
+                target.GetComponent<PlayerController>().Hurt(Damage);
+                break;
+            case "Enemy":
+                target.GetComponent<Drone>().Hurt(Damage);
+                break;
+            case "PlayerProjectile":
+                target.GetComponent<Projectile>().ProjectileDeath();
+                break;
+            case "EnemyProjectile":
+                target.GetComponent<Projectile>().ProjectileDeath();
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -297,23 +320,31 @@ public class Flak : Warhead
 {
     public float DamageRange;
     public float DetonationDistance;
+    public float Fuse = 0.25f;
     bool Detonated;
+    bool FuseActivated;
 
     public override void WarheadLogic()
     {
-        if (GameObject.FindGameObjectsWithTag(TargetTag).Length > 0 && Torpedo != null)
-        {
-            if (GameObjectHelper.AnyObjectsWithinDistance(Torpedo.gameObject, DetonationDistance, TargetTag) && !Detonated)
+        if (!Detonated)
+            if (GameObject.FindGameObjectsWithTag(TargetTag).Length > 0 && Torpedo != null)
             {
-                List<GameObject> inRange = GameObjectHelper.GetGameObjectsInRange(Torpedo.gameObject, TargetTag, DamageRange);
+                if (FuseActivated)
+                {
+                    Fuse -= Time.deltaTime;
+                    
+                    if (Fuse <= 0)
+                        Detonate();
+                }
 
-                foreach (GameObject enemy in inRange)
-                    enemy.GetComponent<Drone>().Hurt(Damage);
-
-                Detonated = true;
-                Torpedo.SetToDestroy();
+                if (GameObjectHelper.AnyObjectsWithinDistance(Torpedo.gameObject, DetonationDistance, TargetTag))
+                    FuseActivated = true;
             }
-        }
+    }
+
+    public override void OnHit(GameObject target)
+    {
+        Detonate();
     }
 
     public override void Set(Warhead warheadStats)
@@ -331,5 +362,16 @@ public class Flak : Warhead
         DetonationDistance = detonationDistance;
         //DamageRange = damageRange;
         DamageRange = detonationDistance * 2;
+    }
+
+    void Detonate()
+    {
+        List<GameObject> inRange = GameObjectHelper.GetGameObjectsInRange(Torpedo.gameObject, TargetTag, DamageRange);
+
+        foreach (GameObject enemy in inRange)
+            enemy.GetComponent<Drone>().Hurt(Damage);
+
+        Detonated = true;
+        Torpedo.SetToDestroy();
     }
 }

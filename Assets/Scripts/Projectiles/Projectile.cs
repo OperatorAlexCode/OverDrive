@@ -66,7 +66,6 @@ public class Projectile : MonoBehaviour
                 default:
                     ProjectileDeath();
                     break;
-
             }
     }
 

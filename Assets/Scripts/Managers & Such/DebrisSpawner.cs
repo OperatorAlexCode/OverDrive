@@ -11,6 +11,7 @@ public class DebrisSpawner : MonoBehaviour
     // GameObject
     [SerializeField] GameObject SpawnParent;
     [SerializeField] List<GameObject> DebrisPrefabs;
+    [SerializeField] GameObject Player;
     int MinimumDebrisAmount;
 
     private void Update()
@@ -30,7 +31,12 @@ public class DebrisSpawner : MonoBehaviour
             int chosenPrefab = Random.Range(0, DebrisPrefabs.Count);
             GameObject newDebris = Instantiate(DebrisPrefabs[chosenPrefab]);
 
-            newDebris.transform.position = new Vector2(Random.Range(spawnArea.xMin, spawnArea.xMax), Random.Range(spawnArea.yMin, spawnArea.yMax));
+            Vector2 spawnPos = new Vector2(Random.Range(spawnArea.xMin, spawnArea.xMax), Random.Range(spawnArea.yMin, spawnArea.yMax));
+
+            while (Vector2.Distance(Player.transform.position,spawnPos) < 5)
+                spawnPos = new Vector2(Random.Range(spawnArea.xMin, spawnArea.xMax), Random.Range(spawnArea.yMin, spawnArea.yMax));
+
+            newDebris.transform.position = spawnPos;
 
             if (DebrisPrefabs[chosenPrefab].name == "Asteroid")
             {
@@ -42,7 +48,7 @@ public class DebrisSpawner : MonoBehaviour
                 newDebris.GetComponent<Rigidbody2D>().AddForce(Random.insideUnitCircle.normalized * Random.Range(0.5f, 3f), ForceMode2D.Impulse);
 
             if (Random.Range(0f, 1f) <= RotationChance)
-                newDebris.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-3f, 3f), ForceMode2D.Impulse);
+                newDebris.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-0.75f, 0.75f), ForceMode2D.Impulse);
 
             newDebris.transform.SetParent(SpawnParent.transform);
         }

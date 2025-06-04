@@ -9,8 +9,8 @@ public class UIBar : MonoBehaviour
     [SerializeField] Color[] GradientColors;
     [SerializeField] bool UseCustomGradient;
     [SerializeField] Gradient BarGradient;
-    Slider Bar;
-    Image BarFill;
+    [SerializeField] Slider Bar;
+    [SerializeField] Image BarFill;
 
     private void Start()
     {
