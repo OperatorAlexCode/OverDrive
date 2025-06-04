@@ -601,7 +601,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 30
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -4822,6 +4822,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3215613369847416534}
   - component: {fileID: 9218351719671631601}
+  - component: {fileID: 7499582840262158880}
   m_Layer: 0
   m_Name: Engines
   m_TagString: Untagged
@@ -4943,6 +4944,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7499582840262158880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3215613369847416535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a82a3497dc18ee479bca1c48d9bfda7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ParticleSystems:
+  - {fileID: 3215613370917816400}
+  - {fileID: 3215613370376351650}
+  - {fileID: 3215613369551582659}
+  Emitting: 0
 --- !u!1 &3215613370376351677
 GameObject:
   m_ObjectHideFlags: 0
@@ -5544,7 +5562,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 30
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -9956,10 +9974,7 @@ MonoBehaviour:
   Health: 18
   Damage: 3
   Projectile: {fileID: 6944717897172984037, guid: aa7ed137b8a463e4f80cb3270b756594, type: 3}
-  EngineExhaust:
-  - {fileID: 3215613370917816400}
-  - {fileID: 3215613370376351650}
-  - {fileID: 3215613369551582659}
+  EngineExhaust: {fileID: 7499582840262158880}
   Explosion: {fileID: 1538013916}
   CanBeStunned: 1
   HitSfx: {fileID: 0}
@@ -15534,7 +15549,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 30
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0

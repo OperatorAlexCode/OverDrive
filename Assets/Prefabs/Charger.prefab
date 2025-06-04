@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 26108616710098294}
   - component: {fileID: 8347026706753534471}
+  - component: {fileID: 182836588608152150}
   m_Layer: 10
   m_Name: Engines
   m_TagString: Untagged
@@ -130,6 +131,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &182836588608152150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26108616710098289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a82a3497dc18ee479bca1c48d9bfda7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ParticleSystems:
+  - {fileID: 6580232831688351553}
+  - {fileID: 26108618647380792}
+  Emitting: 0
 --- !u!1 &26108618647380789
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,7 +748,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 30
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -5142,9 +5159,7 @@ MonoBehaviour:
   Health: 6
   Damage: 5
   Projectile: {fileID: 0}
-  EngineExhaust:
-  - {fileID: 6580232831688351553}
-  - {fileID: 26108618647380792}
+  EngineExhaust: {fileID: 182836588608152150}
   Explosion: {fileID: 3193731530461668455}
   CanBeStunned: 1
   HitSfx: {fileID: 7722678550520829847}
@@ -10786,7 +10801,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 30
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0

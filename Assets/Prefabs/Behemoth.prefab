@@ -601,7 +601,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 30
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -5019,10 +5019,7 @@ MonoBehaviour:
   Health: 200
   Damage: 6
   Projectile: {fileID: 6944717897172984037, guid: aa7ed137b8a463e4f80cb3270b756594, type: 3}
-  EngineExhaust:
-  - {fileID: 885877264565208871}
-  - {fileID: 885877264041631957}
-  - {fileID: 885877264792877748}
+  EngineExhaust: {fileID: 7700263682108194160}
   Explosion: {fileID: 2372099575778424235}
   CanBeStunned: 0
   HitSfx: {fileID: 0}
@@ -10612,7 +10609,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 30
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -15424,7 +15421,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 30
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -19645,6 +19642,7 @@ GameObject:
   m_Component:
   - component: {fileID: 885877265643866529}
   - component: {fileID: 4676634130986232519}
+  - component: {fileID: 7700263682108194160}
   m_Layer: 0
   m_Name: Engines
   m_TagString: Untagged
@@ -19766,6 +19764,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7700263682108194160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885877265643866528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a82a3497dc18ee479bca1c48d9bfda7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ParticleSystems:
+  - {fileID: 885877264565208871}
+  - {fileID: 885877264041631957}
+  - {fileID: 885877264792877748}
+  Emitting: 0
 --- !u!1 &1732242383202522772
 GameObject:
   m_ObjectHideFlags: 0

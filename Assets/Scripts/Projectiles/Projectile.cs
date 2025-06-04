@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -118,6 +119,7 @@ public class Projectile : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameObject.Find(GameObjectNames.Managers).GetComponent<SoundManager>().RemoveAudioSource(HitSfx,SourceType.Sfx);
+        if (HitSfx != null)
+            GameObject.Find(GameObjectNames.Managers).GetComponent<SoundManager>().RemoveAudioSource(HitSfx,SourceType.Sfx);
     }
 }

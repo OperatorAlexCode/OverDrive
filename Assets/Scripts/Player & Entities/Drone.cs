@@ -33,7 +33,8 @@ public class Drone : MonoBehaviour
     protected Vector3 PlayerPos;
 
     // Particle System
-    [SerializeField] protected ParticleSystem[] EngineExhaust;
+    //[SerializeField] protected ParticleSystem[] EngineExhaust;
+    [SerializeField] protected PolyParticleSystem EngineExhaust;
     [SerializeField] protected ParticleSystem Explosion;
 
     // bool
@@ -54,6 +55,7 @@ public class Drone : MonoBehaviour
     protected Path Path;
     [SerializeField] protected EnemyType Type;
     [SerializeField] protected LayerMask ProjectileHitMask;
+    bool EnginesOn = false;
 
 
     // Start is called before the first frame update
@@ -78,14 +80,14 @@ public class Drone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Player != null)
-            PlayerPos = Player.transform.position;
+        //if (Health <= 0 && !IsDead)
+        //    StartCoroutine(EnemyDeath());
 
-        if (Health <= 0 && !IsDead)
-            StartCoroutine(EnemyDeath());
-
-        else if (!IsDead)
+        if (!IsDead)
         {
+            if (Player != null)
+                PlayerPos = Player.transform.position;
+
             if (Vector2.Distance(PlayerPos, transform.position) >= DespawnDistance)
                 Despawn();
 
@@ -123,17 +125,21 @@ public class Drone : MonoBehaviour
         Player = GameObject.Find("Player");
         Seeker = GetComponent<Seeker>();
 
-        foreach (ParticleSystem exhaust in EngineExhaust)
-            exhaust.Play();
+        /*foreach (ParticleSystem exhaust in EngineExhaust)
+            exhaust.Play();*/
+
+        EnableEngines(true);
 
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
 
     protected void UpdatePath()
     {
-        if (Player != null)
-            if (Seeker.IsDone())
-                Seeker.StartPath(transform.position, Player.transform.position, OnPathComplete);
+        if (IsDead || Player == null)
+            return;
+        
+        else if (Seeker.IsDone())
+            Seeker.StartPath(transform.position, Player.transform.position, OnPathComplete);
     }
 
     protected void OnPathComplete(Path path)
@@ -151,15 +157,13 @@ public class Drone : MonoBehaviour
             return;
 
         if (CurrentWaypoint >= Path.vectorPath.Count)
-        {
             return;
-        }
 
         RotateTowards((Vector2)Path.vectorPath[CurrentWaypoint] - (Vector2)transform.position);
 
         Rb.AddForce(transform.up * Acceleration * Time.deltaTime, ForceMode2D.Force);
-
-        EnableEngines(true);
+        
+        //EnableEngines(true);
 
         if (Vector2.Distance(transform.position, Path.vectorPath[CurrentWaypoint]) < NextWaypointDistance)
             CurrentWaypoint++;
@@ -180,7 +184,9 @@ public class Drone : MonoBehaviour
         laser.Set(Damage, ProjectileLaunchSpeed, ProjectileHitMask);
         laser.SetColor(GameObject.Find(GameObjectNames.Managers).GetComponent<GameManager>().EnemyProjectilesColor);
         laser.Fire();
-        FireSfx.Play();
+
+        if (FireSfx != null)
+            FireSfx.Play();
 
         yield return new WaitForSeconds(FireDelay);
         CanFire = true;
@@ -190,28 +196,39 @@ public class Drone : MonoBehaviour
     {
         Health -= damage;
 
-        if (!IsDead && CanBeStunned)
+        if (Health <= 0 && !IsDead)
         {
-            //Hit.Play();
-            if (Mathf.RoundToInt(Random.value) == 1)
-                Rb.AddTorque(-damage * 2f, ForceMode2D.Impulse);
-            else
-                Rb.AddTorque(-damage * 2f, ForceMode2D.Impulse);
-
-            EnableEngines(false);
-            Stunned = true;
-            StartCoroutine(StunDelay());
+            StartCoroutine(EnemyDeath());
+            return;
         }
+
+        //Hit.Play();
+        if (Mathf.RoundToInt(Random.value) == 1)
+            Rb.AddTorque(-damage * 2f, ForceMode2D.Impulse);
+        else
+            Rb.AddTorque(-damage * 2f, ForceMode2D.Impulse);
+
+        EnableEngines(false);
+        Stunned = true;
+        StartCoroutine(StunDelay());
     }
 
     protected virtual IEnumerator EnemyDeath()
     {
-        DeathSfx.Play();
+        IsDead = true;
         Rb.velocity = Vector3.zero;
         Rb.angularVelocity = 0;
 
-        IsDead = true;
-        EnableDisableEngineExhaust(false);
+        //EnableDisableEngineExhaust(false);
+        EnginesSfx.Stop();
+        EngineExhaust.ForceStop();
+
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<PolygonCollider2D>().enabled = false;
+
+        DeathSfx.Play();
+        Explosion.Play();
+
         GameObject.Find(GameObjectNames.Managers).GetComponent<EnemySpawner>().EnemiesLeft[Type]--;
 
         //float t = 0;
@@ -228,16 +245,13 @@ public class Drone : MonoBehaviour
 
         //Destroy(gameObject);
 
-        GetComponent<SpriteRenderer>().enabled = false;
-        GetComponent<PolygonCollider2D>().enabled = false;
-
-        foreach (ParticleSystem exhaust in EngineExhaust)
+        /*foreach (ParticleSystem exhaust in EngineExhaust)
         {
             exhaust.Stop(true, ParticleSystemStopBehavior.StopEmitting);
             exhaust.gameObject.SetActive(false);
-        }
+        }*/
 
-        Explosion.Play();
+        
         yield return new WaitForSeconds(3f);
     }
 
@@ -245,7 +259,9 @@ public class Drone : MonoBehaviour
     {
         yield return new WaitForSeconds(StunDuration);
         Stunned = false;
-        EnableDisableEngineExhaust(true);
+        //EnableDisableEngineExhaust(true);
+        if (!IsDead)
+            EnableEngines(true);
     }
 
     protected void Despawn()
@@ -281,15 +297,24 @@ public class Drone : MonoBehaviour
 
     protected void EnableEngines(bool enable)
     {
-        if (enable && !EnginesSfx.isPlaying)
-            EnginesSfx.Play();
-        else if (!enable)
-            EnginesSfx.Stop();
+        if (enabled && enabled != EnginesOn)
+        {
+            if (!EnginesSfx.isPlaying)
+                EnginesSfx.Play();
 
-        EnableDisableEngineExhaust(enable);
+            EngineExhaust.Play();  
+        }
+        else if (!enable)
+        {
+            EnginesSfx.Stop();
+            EngineExhaust.Stop();
+        }
+
+        EnginesOn = enable;
+        //EnableDisableEngineExhaust(enable);
     }
 
-    protected void EnableDisableEngineExhaust(bool enable)
+    /*protected void EnableDisableEngineExhaust(bool enable)
     {
         if (EngineExhaust.Any(e => !e.emission.enabled))
             foreach (ParticleSystem exhaust in EngineExhaust)
@@ -297,7 +322,7 @@ public class Drone : MonoBehaviour
                 var emission = exhaust.emission;
                 emission.enabled = enable;
             }
-    }
+    }*/
 
     public int GetCurrentHealth()
     {
@@ -308,8 +333,13 @@ public class Drone : MonoBehaviour
     {
         SoundManager soundManager = GameObject.Find(GameObjectNames.Managers).GetComponent<SoundManager>();
 
-        soundManager.RemoveAudioSource(FireSfx, SourceType.Sfx);
-        soundManager.RemoveAudioSource(DeathSfx, SourceType.Sfx);
-        soundManager.RemoveAudioSource(EnginesSfx, SourceType.Sfx);
+        if (FireSfx != null)
+            soundManager.RemoveAudioSource(FireSfx, SourceType.Sfx);
+        
+        if (DeathSfx != null)
+            soundManager.RemoveAudioSource(DeathSfx, SourceType.Sfx);
+
+        if (EnginesSfx != null)
+            soundManager.RemoveAudioSource(EnginesSfx, SourceType.Sfx);
     }
 }

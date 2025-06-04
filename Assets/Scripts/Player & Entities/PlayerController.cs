@@ -490,6 +490,7 @@ public class PlayerController : MonoBehaviour
         IsDead = true;
         Cursor.visible = false;
         //EnableDisableExhaust(false);
+        EnableEngines(false);
 
         GameObject.Find("Managers").GetComponent<UIManager>().DisplayHud(false);
 

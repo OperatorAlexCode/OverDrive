@@ -46,7 +46,8 @@ public class Destroyer : Drone
                         Rb.AddForce(-(Rb.velocity.normalized * Acceleration * Time.deltaTime), ForceMode2D.Force);
                     }
 
-                    EnableDisableEngineExhaust(false);
+                    //EnableDisableEngineExhaust(false);
+                    EngineExhaust.Stop();
                 }
 
                 //Debug.Log(Vector2.Angle(transform.up, PlayerPos - transform.position));
@@ -56,7 +57,8 @@ public class Destroyer : Drone
             }
 
             else
-                EnableDisableEngineExhaust(false);
+                //EnableDisableEngineExhaust(false);
+                EngineExhaust.Stop();
 
             CapVelocity();
         }

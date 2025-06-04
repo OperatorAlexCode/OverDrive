@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6363145413886000740}
+  - component: {fileID: 6942205295491373225}
   - component: {fileID: 8682200484280127465}
   - component: {fileID: 1357951538709867563}
   - component: {fileID: 8819591277499567656}
@@ -34,6 +35,21 @@ Transform:
   m_Father: {fileID: 5556391773784218847}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6942205295491373225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2502787849795954072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a82a3497dc18ee479bca1c48d9bfda7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ParticleSystems:
+  - {fileID: 8682200484280127465}
+  Emitting: 0
 --- !u!198 &8682200484280127465
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -602,7 +618,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 20
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -5080,8 +5096,7 @@ MonoBehaviour:
   Health: 10
   Damage: 1
   Projectile: {fileID: 6944717897172984037, guid: 51120d61516e28646aff52c87eefc767, type: 3}
-  EngineExhaust:
-  - {fileID: 8682200484280127465}
+  EngineExhaust: {fileID: 6942205295491373225}
   Explosion: {fileID: 1416330690651862236}
   CanBeStunned: 1
   HitSfx: {fileID: 6033662585963084752}
