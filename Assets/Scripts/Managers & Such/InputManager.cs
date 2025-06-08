@@ -116,7 +116,12 @@ public class InputManager : MonoBehaviour
         Menu currentMenu = FindObjectsOfType<Menu>().FirstOrDefault(m => m.ActiveMenu);
 
         if (EventSystem.current.currentSelectedGameObject == null && currentMenu != null)
+        {
             currentMenu.ForceSelectElement();
+            //PlayerInput.all[0].SwitchCurrentActionMap("UI");
+        }
+        //else
+        //    PlayerInput.all[0].SwitchCurrentActionMap("Player");
 
         PlayerInput.all[0].SwitchCurrentControlScheme(Gamepad.current);
         UseController = true;

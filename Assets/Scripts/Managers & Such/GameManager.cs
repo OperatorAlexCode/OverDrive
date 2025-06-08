@@ -118,6 +118,8 @@ public class GameManager : MonoBehaviour
 
         if (BeginWave)
             StartWave();
+
+        //PlayerInput.all[0].SwitchCurrentActionMap("Player");
     }
 
     // Update is called once per frame

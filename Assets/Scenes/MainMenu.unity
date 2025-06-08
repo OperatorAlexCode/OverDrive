@@ -603,7 +603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 8074a4dc389e9ff44b85bab00c5f0008, type: 3}
   m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
+  m_UIInputModule: {fileID: 1534655875}
   m_DeviceLostEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -674,8 +674,12 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 89b634d9-57b2-427f-918c-5c002194bb6d
     m_ActionName: UI/RightClick[/Mouse/rightButton]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cb0ac27f-b0bc-4490-a17b-35582d5df84e
+    m_ActionName: Player/ForceReset[/Keyboard/f1,/DualShock4GamepadHID/select]
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -704,7 +708,7 @@ PrefabInstance:
     - target: {fileID: 965058715969612468, guid: e1dc5cf6ade8f8245819219b02ca6701, type: 3}
       propertyPath: m_Navigation.m_SelectOnDown
       value: 
-      objectReference: {fileID: 182288909}
+      objectReference: {fileID: 1805530615}
     - target: {fileID: 965058715969612468, guid: e1dc5cf6ade8f8245819219b02ca6701, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1

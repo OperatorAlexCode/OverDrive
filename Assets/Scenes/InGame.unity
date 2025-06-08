@@ -19555,6 +19555,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 89b634d9-57b2-427f-918c-5c002194bb6d
     m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 687771650}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: cb0ac27f-b0bc-4490-a17b-35582d5df84e
+    m_ActionName: Player/ForceReset[/Keyboard/f1,/DualShock4GamepadHID/select]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
