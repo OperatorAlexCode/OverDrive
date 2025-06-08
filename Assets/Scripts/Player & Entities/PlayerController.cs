@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 using UnityEditor.Rendering.LookDev;
+using static Unity.Profiling.ProfilerMarker;
 
 public class PlayerController : MonoBehaviour
 {
@@ -82,14 +83,6 @@ public class PlayerController : MonoBehaviour
     Vector2 AimDirection = Vector2.zero;
     Vector2 MovementVector = Vector2.zero;
 
-    // InputActions
-    /*InputAction Move;
-    InputAction Look;
-    InputAction PrimaryFire;
-    InputAction SecondaryFire;
-    InputAction Ability1;
-    InputAction Ability2;*/
-
     // ParticleSystem
     //[SerializeField] ParticleSystem[] EngineExhaust;
     [SerializeField] PolyParticleSystem EngineExhaust;
@@ -109,6 +102,14 @@ public class PlayerController : MonoBehaviour
     //public PlayerInputActions PlayerControls;
     Ability AbilityInUse;
     [SerializeField] LayerMask ProjectileHitMask;
+
+    // InputActions
+    /*InputAction Move;
+    InputAction Look;
+    InputAction PrimaryFire;
+    InputAction SecondaryFire;
+    InputAction Ability1;
+    InputAction Ability2;*/
 
     // Start is called before the first frame update
     void Start()
@@ -160,19 +161,11 @@ public class PlayerController : MonoBehaviour
 
         Ability1 = PlayerControls.Player.Ability1;
         Ability1.Enable();
-        Ability1.performed += (InputAction.CallbackContext context) =>
-        {
-            if (GameObject.Find("Managers").GetComponent<UIManager>().CurrentInterface == MenuUI.None)
-                StartCoroutine(Repair());
-        };
+        Ability1.performed += (InputAction.CallbackContext context) => Ability1();
 
         Ability2 = PlayerControls.Player.Ability2;
         Ability2.Enable();
-        Ability2.performed += (InputAction.CallbackContext context) =>
-        {
-            if (GameObject.Find("Managers").GetComponent<UIManager>().CurrentInterface == MenuUI.None)
-                StartCoroutine(VentHeat());
-        };
+        Ability2.performed += (InputAction.CallbackContext context) => Ability2();
     }*/
 
     /*private void OnDisable()
@@ -308,24 +301,28 @@ public class PlayerController : MonoBehaviour
 
     public void PrimaryFire(InputAction.CallbackContext context)
     {
-        StartCoroutine(FirePrimary());
+        if (context.performed && !context.canceled && Time.timeScale > 0)
+            StartCoroutine(FirePrimary());
     }
 
     public void SecondaryFire(InputAction.CallbackContext context)
     {
-        StartCoroutine(FireSecondary());
+        if (context.performed && !context.canceled && Time.timeScale > 0)
+            StartCoroutine(FireSecondary());
     }
 
     public void Ability1(InputAction.CallbackContext context)
     {
         if (GameObject.Find("Managers").GetComponent<UIManager>().CurrentInterface == MenuUI.None)
-            StartCoroutine(Repair());
+            if (context.performed && !context.canceled && Time.timeScale > 0)
+                StartCoroutine(Repair());
     }
 
     public void Ability2(InputAction.CallbackContext context)
     {
         if (GameObject.Find("Managers").GetComponent<UIManager>().CurrentInterface == MenuUI.None)
-            StartCoroutine(VentHeat());
+            if (context.performed && !context.canceled && Time.timeScale > 0)
+                StartCoroutine(VentHeat());
     }
     #endregion
 
@@ -793,6 +790,7 @@ public class PlayerController : MonoBehaviour
                 heatVented += heatToVent;
                 timer.Set(1f - heatVented / HeatVentDrainAmount);
                 t += Time.deltaTime;
+
                 yield return null;
             }
 
@@ -826,6 +824,7 @@ public class PlayerController : MonoBehaviour
         {
             timer.Set(t / duration);
             t += Time.deltaTime;
+
             yield return null;
         }
 

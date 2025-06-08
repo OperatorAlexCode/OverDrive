@@ -31,14 +31,23 @@ public class UpgradeHelper : EditorWindow
         if (NewUpgrade == null)
             NewUpgrade = CreateInstance<Upgrade>();
 
-        UpgradeManager mngr = GameObject.Find("Managers").GetComponent<UpgradeManager>();
+        UpgradeManager mngr = null;
+
+        try
+        {
+            mngr = GameObject.Find("Managers").GetComponent<UpgradeManager>();
+        } catch
+        {
+            EditorGUILayout.TextArea("Can't find upgrade manager");
+        }
 
         EditorGUILayout.PropertyField(new SerializedObject(NewUpgrade).FindProperty("Changes"), true);
 
         List<string> upgradeListNames = new();
 
-        foreach (FieldInfo list in mngr.GetType().GetFields())
-            upgradeListNames.Add(list.Name);
+        if (mngr != null)
+            foreach (FieldInfo list in mngr.GetType().GetFields())
+                upgradeListNames.Add(list.Name);
 
         SelectedUpgradeList = EditorGUILayout.Popup("Upgrade List", SelectedUpgradeList, upgradeListNames.ToArray());
         UpgradeType = (UpgradeType)EditorGUILayout.EnumPopup("Type", UpgradeType);

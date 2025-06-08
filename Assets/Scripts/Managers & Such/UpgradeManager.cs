@@ -82,8 +82,8 @@ public class UpgradeManager : MonoBehaviour
             GetComponent<UIManager>().ClearDisplayedUpgrades();
             GetComponent<GameManager>().StartWave();
         }
-        else
-            GetComponent<UIManager>().SetSelectedUIElement(MenuUI.UpgradeSelection);
+        else if (GetComponent<GameManager>().UseController)
+            GetComponent<UIManager>().GetActiveMenu().ForceSelectElement();
     }
 
     [Serializable]

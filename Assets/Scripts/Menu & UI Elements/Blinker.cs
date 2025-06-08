@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using System.Linq;
 
 public class Blinker : MonoBehaviour
 {
@@ -13,16 +12,17 @@ public class Blinker : MonoBehaviour
     [SerializeField] List<Phase> Phases;
     [SerializeField] Blinker SynchronizeWith;
     public Phase CurrentPhase;
-    PlayerController Player;
+    [SerializeField] PlayerController Player;
     Image Icon;
     public bool IsOn;
 
     // Start is called before the first frame update
     void Start()
     {
-        Player = GameObject.Find("Player").GetComponent<PlayerController>();
+        //Player = GameObject.Find("Player").GetComponent<PlayerController>();
         Icon = GetComponent<Image>();
         CurrentPhase = Phases[0];
+        Value = Player.Heat;
     }
 
     // Update is called once per frame
@@ -37,6 +37,7 @@ public class Blinker : MonoBehaviour
 
         else if (Player != null)
             if (Player.Heat != Value)
+            {
                 if (!CurrentPhase.InRange(Value / Player.MaxHeat))
                 {
                     StopAllCoroutines();
@@ -45,12 +46,13 @@ public class Blinker : MonoBehaviour
                     Icon.sprite = CurrentPhase.Icon;
                     Icon.color = CurrentPhase.Clr;
                     IsOn = true;
-                    
-                    StartCoroutine(Flicker());
-                }
 
-        Icon.enabled = IsOn;
+                    StartCoroutine(Flicker());
+                } 
+            }
+
         Value = Player.Heat;
+        Icon.enabled = IsOn;
     }
 
 
@@ -80,11 +82,14 @@ public class Blinker : MonoBehaviour
             bool aboveMin = false;
             bool bellowMax = false;
 
-            if ((value >= RangeMin && MinEnclusive) || (value > RangeMin && !MinEnclusive))
-                aboveMin = true;
+            //if ((value >= RangeMin && MinEnclusive) || (value > RangeMin && !MinEnclusive))
+            //    aboveMin = true;
 
-            if ((value <= RangeMax && MaxEnclusive) || (value < RangeMax && !MaxEnclusive))
-                bellowMax = true;
+            //if ((value <= RangeMax && MaxEnclusive) || (value < RangeMax && !MaxEnclusive))
+            //    bellowMax = true;
+            
+            aboveMin = (value >= RangeMin && MinEnclusive) || (value > RangeMin && !MinEnclusive);
+            bellowMax = (value <= RangeMax && MaxEnclusive) || (value < RangeMax && !MaxEnclusive);
 
             return aboveMin && bellowMax;
         }

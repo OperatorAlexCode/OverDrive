@@ -20,11 +20,29 @@ public class SoundManager : MonoBehaviour
         if (PlayerPrefs.HasKey(PlayerPrefkeys.MasterVolumeKey))
             MasterVolume = PlayerPrefs.GetFloat(PlayerPrefkeys.MasterVolumeKey);
 
+        else
+        {
+            PlayerPrefs.SetFloat(PlayerPrefkeys.MasterVolumeKey, MasterVolume);
+            PlayerPrefs.Save();
+        }
+
         if (PlayerPrefs.HasKey(PlayerPrefkeys.MusicVolumeKey))
             MusicVolume = PlayerPrefs.GetFloat(PlayerPrefkeys.MusicVolumeKey);
+        
+        else
+        {
+            PlayerPrefs.SetFloat(PlayerPrefkeys.MusicVolumeKey, MusicVolume);
+            PlayerPrefs.Save();
+        }
 
         if (PlayerPrefs.HasKey(PlayerPrefkeys.SfxVolumeKey))
             SfxVolume = PlayerPrefs.GetFloat(PlayerPrefkeys.SfxVolumeKey);
+
+        else
+        {
+            PlayerPrefs.SetFloat(PlayerPrefkeys.SfxVolumeKey, SfxVolume);
+            PlayerPrefs.Save();
+        }
 
         //UpdateVolume(SourceType.Music);
         UpdateVolume(SourceType.Sfx);
@@ -78,6 +96,20 @@ public class SoundManager : MonoBehaviour
                 audioSource.volume = MasterVolume * SfxVolume;
                 break;
         }
+    }
+
+    public void UpdateValues()
+    {
+        if (PlayerPrefs.HasKey(PlayerPrefkeys.MasterVolumeKey))
+            MasterVolume = PlayerPrefs.GetFloat(PlayerPrefkeys.MasterVolumeKey);
+
+        if (PlayerPrefs.HasKey(PlayerPrefkeys.MusicVolumeKey))
+            MusicVolume = PlayerPrefs.GetFloat(PlayerPrefkeys.MusicVolumeKey);
+
+        if (PlayerPrefs.HasKey(PlayerPrefkeys.SfxVolumeKey))
+            SfxVolume = PlayerPrefs.GetFloat(PlayerPrefkeys.SfxVolumeKey);
+        
+        UpdateVolumeAll();
     }
 
     public void RemoveAudioSource(AudioSource audioSource, SourceType type)

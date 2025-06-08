@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionDamage: 1
-  MinCollisionSpeed: 2
+  MinCollisionSpeed: 5
   CollisionLayers:
     serializedVersion: 2
     m_Bits: 448

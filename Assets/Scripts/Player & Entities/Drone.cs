@@ -253,6 +253,8 @@ public class Drone : MonoBehaviour
 
         
         yield return new WaitForSeconds(3f);
+
+        Destroy(gameObject);
     }
 
     protected virtual IEnumerator StunDelay()

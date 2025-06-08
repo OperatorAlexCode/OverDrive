@@ -12,11 +12,15 @@ public class DebrisSpawner : MonoBehaviour
     [SerializeField] GameObject SpawnParent;
     [SerializeField] List<GameObject> DebrisPrefabs;
     [SerializeField] GameObject Player;
-    int MinimumDebrisAmount;
+    [SerializeField] int MinimumDebrisAmount;
+    [SerializeField] string DebrisTag = "Debris";
 
     private void Update()
     {
+        GameObject[] debris = GameObject.FindGameObjectsWithTag(DebrisTag);
 
+        if (debris.Length <= MinimumDebrisAmount)
+            SpawnInArea(debris.Length - MinimumDebrisAmount, GetComponent<GameManager>().PlayArea);
     }
 
     /// <summary>
@@ -33,7 +37,7 @@ public class DebrisSpawner : MonoBehaviour
 
             Vector2 spawnPos = new Vector2(Random.Range(spawnArea.xMin, spawnArea.xMax), Random.Range(spawnArea.yMin, spawnArea.yMax));
 
-            while (Vector2.Distance(Player.transform.position,spawnPos) < 5)
+            while (Vector2.Distance(Player.transform.position,spawnPos) < 10)
                 spawnPos = new Vector2(Random.Range(spawnArea.xMin, spawnArea.xMax), Random.Range(spawnArea.yMin, spawnArea.yMax));
 
             newDebris.transform.position = spawnPos;

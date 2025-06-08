@@ -27,8 +27,12 @@ public class UpgradeCard : MonoBehaviour
     {
         if (GameObject.Find(GameObjectNames.Managers).GetComponent<GameManager>().UseController)
         {
-            if (EventSystem.current.currentSelectedGameObject.Equals(gameObject))
+            if (EventSystem.current.currentSelectedGameObject == null)
+                SelectScale(false);
+
+            else if (EventSystem.current.currentSelectedGameObject.Equals(gameObject))
                 SelectScale(true);
+
             else
                 SelectScale(false);
         }

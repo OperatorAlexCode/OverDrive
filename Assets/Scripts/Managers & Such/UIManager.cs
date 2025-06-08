@@ -10,15 +10,21 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    // GameObject
+    // GameObjects
     [SerializeField] GameObject GameHud;
-    [SerializeField] GameObject GameOverScreen;
+    //[SerializeField] GameObject GameOverScreen;
     [SerializeField] GameObject UpgradeCard;
-    [SerializeField] GameObject UpgradeSelection;
-    [SerializeField] GameObject PauseMenu;
+    //[SerializeField] GameObject UpgradeSelection;
+    //[SerializeField] GameObject PauseMenu;
     [SerializeField] GameObject SettingsMenu;
-    [SerializeField] GameObject WinScreen;
-    public List<GameObject> PreviouslySelected;
+    //[SerializeField] GameObject WinScreen;
+    //public List<GameObject> PreviouslySelected;
+
+    // Menus
+    [SerializeField] Menu PauseMenu;
+    [SerializeField] Menu WinScreen;
+    [SerializeField] Menu GameOverScreen;
+    [SerializeField] Menu UpgradeSelection;
 
     // Color | Upgrades
     [SerializeField] Color ShipUpgrade;
@@ -35,7 +41,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Color TimerBacking;
     [SerializeField] Color TimerOverlay;
 
-    // MenuUI
+    //// MenuUI
     public MenuUI CurrentInterface;
     public MenuUI LastInterface;
 
@@ -61,9 +67,9 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         // Sets values for some ui element in the settings menu
-        SettingsMenu.transform.Find("Options").Find(GameObjectNames.ControlerToggle).GetComponent<Toggle>().isOn = GetComponent<GameManager>().UseController;
+        //SettingsMenu.transform.Find("Options").Find(GameObjectNames.ControlerToggle).GetComponent<Toggle>().isOn = GetComponent<GameManager>().UseController;
         //SettingsMenu.transform.Find("Options").Find(GameObjectNames.SimpleControlsToggle).GetComponent<Toggle>().isOn = GetComponent<GameManager>().SimpleSteering;
-        SettingsMenu.transform.Find("Options").Find(GameObjectNames.RotateSpeedSlider).Find("Slider").GetComponent<Slider>().value = Player.RotationalSpeed;
+        //SettingsMenu.transform.Find("Options").Find(GameObjectNames.RotateSpeedSlider).Find("Slider").GetComponent<Slider>().value = Player.RotationalSpeed;
 
         // Sets the background and backing for each timer
         List<Timer> timers = new()
@@ -101,7 +107,7 @@ public class UIManager : MonoBehaviour
             HealthText.text = $"{Player.Health}";
 
             //// Wether the player can interact with the controler toggle if 
-            SettingsMenu.transform.Find("Options").Find(GameObjectNames.ControlerToggle).GetComponent<Toggle>().interactable = Gamepad.current != null;
+            //SettingsMenu.transform.Find("Options").Find(GameObjectNames.ControlerToggle).GetComponent<Toggle>().interactable = Gamepad.current != null;
         }
     }
 
@@ -120,13 +126,20 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ShowGameOverScreen()
     {
+        //GameHud.SetActive(false);
+        //GameOverScreen.SetActive(true);
+
+        //if (GetComponent<GameManager>().UseController)
+        //    SetSelectedUIElement(MenuUI.GameOver);
+
+        //else
+        //    ChangeToDefaultCursor();
+
         GameHud.SetActive(false);
-        GameOverScreen.SetActive(true);
+
+        GameOverScreen.SwitchTo();
 
         if (GetComponent<GameManager>().UseController)
-            SetSelectedUIElement(MenuUI.GameOver);
-
-        else
             ChangeToDefaultCursor();
 
         CurrentInterface = MenuUI.GameOver;
@@ -176,11 +189,11 @@ public class UIManager : MonoBehaviour
             //newCard.GetComponent<Button>().onClick.AddListener(GetComponent<GameManager>().StartWave);
         }
 
-        if (GetComponent<GameManager>().UseController)
-            SetSelectedUIElement(MenuUI.UpgradeSelection);
-
-        else
+        if (!GetComponent<GameManager>().UseController)
             ChangeToDefaultCursor();
+
+        UpgradeSelection.SwitchTo();
+        //UpgradeSelection.ForceSelectElement();
 
         CurrentInterface = MenuUI.UpgradeSelection;
     }
@@ -191,22 +204,21 @@ public class UIManager : MonoBehaviour
     /// <param name="toDisplay">True to display, false to hide</param>
     public void DisplayPauseMenu(bool toDisplay)
     {
-        if (CurrentInterface == MenuUI.UpgradeSelection)
-            foreach (Transform card in UpgradeSelection.transform)
-                if (card.gameObject.GetComponent<UpgradeCard>().SelectedCard)
-                {
-                    PreviouslySelected.Add(card.gameObject);
-                    break;
-                }
+        //if (CurrentInterface == MenuUI.UpgradeSelection)
+        //    foreach (Transform card in UpgradeSelection.transform)
+        //        if (card.gameObject.GetComponent<UpgradeCard>().SelectedCard)
+        //        {
+        //            PreviouslySelected.Add(card.gameObject);
+        //            break;
+        //        }
 
-        PauseMenu.SetActive(toDisplay);
+        //PauseMenu.gameObject.SetActive(toDisplay);
 
         if (toDisplay)
         {
-            if (GetComponent<GameManager>().UseController)
-                SetSelectedUIElement(MenuUI.Pause);
+            PauseMenu.SwitchTo();
 
-            else
+            if (!GetComponent<GameManager>().UseController)
                 ChangeToDefaultCursor();
 
             LastInterface = CurrentInterface;
@@ -214,120 +226,118 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            if (LastInterface == MenuUI.Pause && CurrentInterface == MenuUI.Settings)
-            {
-                DisplaySettingsMenu(false);
-            }
+            //if (LastInterface == MenuUI.Pause && CurrentInterface == MenuUI.Settings)
+            //    DisplaySettingsMenu(false);
 
-            else
+            //else
+            //    CurrentInterface = LastInterface;
+
+            if (LastInterface != MenuUI.Pause || CurrentInterface != MenuUI.Settings)
                 CurrentInterface = LastInterface;
 
-            if (GetComponent<GameManager>().UseController)
-                SelectPreviousSelected();
-
-            else
-                ChangeToAimCursor();
-        }
-
-    }
-
-    /// <summary>
-    /// Show or hide the settings menu for the player
-    /// </summary>
-    /// <param name="toDisplay">True to display, false to hide</param>
-    public void DisplaySettingsMenu(bool toDisplay)
-    {
-        SettingsMenu.SetActive(toDisplay);
-
-        if (toDisplay)
-        {
-            if (GetComponent<GameManager>().UseController)
-                SetSelectedUIElement(MenuUI.Settings);
-
-            else
-                ChangeToDefaultCursor();
-
-            LastInterface = CurrentInterface;
-            CurrentInterface = MenuUI.Settings;
-        }
-        else
-        {
-            CurrentInterface = LastInterface;
-
-            if (GetComponent<GameManager>().UseController)
-                SelectPreviousSelected();
-
-            else
+            if (!GetComponent<GameManager>().UseController)
                 ChangeToAimCursor();
         }
     }
+
+    ///// <summary>
+    ///// Show or hide the settings menu for the player
+    ///// </summary>
+    ///// <param name="toDisplay">True to display, false to hide</param>
+    //public void DisplaySettingsMenu(bool toDisplay)
+    //{
+    //    SettingsMenu.SetActive(toDisplay);
+
+    //    if (toDisplay)
+    //    {
+    //        if (GetComponent<GameManager>().UseController)
+    //            SetSelectedUIElement(MenuUI.Settings);
+
+    //        else
+    //            ChangeToDefaultCursor();
+
+    //        LastInterface = CurrentInterface;
+    //        CurrentInterface = MenuUI.Settings;
+    //    }
+    //    else
+    //    {
+    //        CurrentInterface = LastInterface;
+
+    //        if (GetComponent<GameManager>().UseController)
+    //            SelectPreviousSelected();
+
+    //        else
+    //            ChangeToAimCursor();
+    //    }
+    //}
 
     public void ClearDisplayedUpgrades()
     {
         foreach (Transform child in UpgradeSelection.transform)
             Destroy(child.gameObject);
 
-        ChangeToAimCursor();
+        if (!GetComponent<GameManager>().UseController)
+            ChangeToAimCursor();
 
         CurrentInterface = MenuUI.None;
     }
 
-    /// <summary>
-    /// Selects the default button or element for a specific menu or interface for when player uses a controler to play
-    /// </summary>
-    /// <param name="uiInterface">Desired interface</param>
-    public void SetSelectedUIElement(MenuUI uiInterface)
-    {
-        switch (uiInterface)
-        {
-            case MenuUI.Pause:
-                PauseMenu.transform.Find("Buttons").Find("Resume").GetComponent<Button>().Select();
-                break;
-            case MenuUI.UpgradeSelection:
-                UpgradeSelection.transform.GetChild(0).GetComponent<Button>().Select();
-                break;
-            case MenuUI.GameOver:
-                GameOverScreen.transform.Find("Buttons").Find("Retry").GetComponent<Button>().Select();
-                break;
-            case MenuUI.Settings:
-                SettingsMenu.transform.Find(GameObjectNames.PauseMenuOptions).Find(GameObjectNames.RotateSpeedSlider).Find("Slider").GetComponent<Slider>().Select();
-                break;
-        }
-    }
+    ///// <summary>
+    ///// Selects the default button or element for a specific menu or interface for when player uses a controler to play
+    ///// </summary>
+    ///// <param name="uiInterface">Desired interface</param>
+    //public void SetSelectedUIElement(MenuUI uiInterface)
+    //{
+    //    switch (uiInterface)
+    //    {
+    //        case MenuUI.Pause:
+    //            PauseMenu.transform.Find("Buttons").Find("Resume").GetComponent<Button>().Select();
+    //            break;
+    //        case MenuUI.UpgradeSelection:
+    //            UpgradeSelection.transform.GetChild(0).GetComponent<Button>().Select();
+    //            break;
+    //        case MenuUI.GameOver:
+    //            GameOverScreen.transform.Find("Buttons").Find("Restart").GetComponent<Button>().Select();
+    //            break;
+    //        case MenuUI.Settings:
+    //            SettingsMenu.transform.Find(GameObjectNames.PauseMenuOptions).Find(GameObjectNames.RotateSpeedSlider).Find("Slider").GetComponent<Slider>().Select();
+    //            break;
+    //    }
+    //}
 
-    public void SetControlerToggleSelected()
-    {
-        SettingsMenu.transform.Find("Options").transform.Find(GameObjectNames.ControlerToggle).GetComponent<Toggle>().Select();
-    }
+    //public void SetControlerToggleSelected()
+    //{
+    //    SettingsMenu.transform.Find("Options").transform.Find(GameObjectNames.ControlerToggle).GetComponent<Toggle>().Select();
+    //}
 
-    /// <summary>
-    /// Selects previously selected ui element of the menu before
-    /// </summary>
-    void SelectPreviousSelected()
-    {
-        if (PreviouslySelected.Count > 0)
-        {
-            EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(PreviouslySelected.Last());
+    ///// <summary>
+    ///// Selects previously selected ui element of the menu before
+    ///// </summary>
+    //void SelectPreviousSelected()
+    //{
+    //    if (PreviouslySelected.Count > 0)
+    //    {
+    //        EventSystem.current.SetSelectedGameObject(null);
+    //        EventSystem.current.SetSelectedGameObject(PreviouslySelected.Last());
 
-            if (PreviouslySelected.Last().tag == "UpgradeCard")
-                CurrentInterface = MenuUI.UpgradeSelection;
+    //        if (PreviouslySelected.Last().tag == "UpgradeCard")
+    //            CurrentInterface = MenuUI.UpgradeSelection;
 
-            PreviouslySelected.Remove(PreviouslySelected.Last());
-        }
-    }
+    //        PreviouslySelected.Remove(PreviouslySelected.Last());
+    //    }
+    //}
 
-    public void AddPreviouslySelected(GameObject previouslySelected)
-    {
-        PreviouslySelected.Add(previouslySelected);
-    }
+    //public void AddPreviouslySelected(GameObject previouslySelected)
+    //{
+    //    PreviouslySelected.Add(previouslySelected);
+    //}
 
-    void ChangeToAimCursor()
+    public void ChangeToAimCursor()
     {
         Cursor.SetCursor(AimCursor, new Vector2(AimCursor.width / 2, AimCursor.height / 2), CursorMode.Auto);
     }
 
-    void ChangeToDefaultCursor()
+    public void ChangeToDefaultCursor()
     {
         Cursor.SetCursor(DefaultCursor, Vector2.zero, CursorMode.Auto);
     }
@@ -361,7 +371,35 @@ public class UIManager : MonoBehaviour
     public void DisplayWinScreen()
     {
         DisplayHud(false);
-        WinScreen.SetActive(true);
+        //WinScreen.SetActive(true);
+        WinScreen.SwitchTo();
+    }
+
+    public void SetCurrentInterface(int newValue)
+    {
+        SetCurrentInterface((MenuUI) newValue);
+    }
+
+    public void SetCurrentInterface(MenuUI newValue)
+    {
+        CurrentInterface = newValue;
+    }
+
+    public void SetLastInterface(int newValue)
+    {
+        SetCurrentInterface((MenuUI)newValue);
+    }
+
+    public void SetLastInterface(MenuUI newValue)
+    {
+        CurrentInterface = newValue;
+    }
+
+    public Menu GetActiveMenu()
+    {
+        Menu[] menus = FindObjectsOfType<Menu>();
+
+        return menus.FirstOrDefault(m => m.ActiveMenu);
     }
 }
 
@@ -371,5 +409,6 @@ public enum MenuUI
     Pause,
     UpgradeSelection,
     GameOver,
-    Settings
+    Settings,
+    Win
 }
