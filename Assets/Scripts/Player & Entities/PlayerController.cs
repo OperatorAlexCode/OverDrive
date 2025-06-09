@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 using UnityEditor.Rendering.LookDev;
 using static Unity.Profiling.ProfilerMarker;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
@@ -102,6 +103,7 @@ public class PlayerController : MonoBehaviour
     //public PlayerInputActions PlayerControls;
     Ability AbilityInUse;
     [SerializeField] LayerMask ProjectileHitMask;
+    public UnityEvent<float> OnHeatChangePercentage;
 
     // InputActions
     /*InputAction Move;
@@ -227,6 +229,7 @@ public class PlayerController : MonoBehaviour
             }
 
             LastHeatAmount = Heat;
+            OnHeatChangePercentage.Invoke(Heat/MaxHeat);
 
             if (Time.timeScale > 0)
             {

@@ -10,4 +10,5 @@ public static class PlayerPrefkeys
     public static string MasterVolumeKey = "MasterVolume";
     public static string MusicVolumeKey = "MusicVolume";
     public static string SfxVolumeKey = "SfxVolume";
+    public static string BlinkingEnabledKey = "BlinkingEnabled";
 }

@@ -12,9 +12,10 @@ public class Blinker : MonoBehaviour
     [SerializeField] List<Phase> Phases;
     [SerializeField] Blinker SynchronizeWith;
     public Phase CurrentPhase;
-    [SerializeField] PlayerController Player;
+    //[SerializeField] PlayerController Player;
     Image Icon;
     public bool IsOn;
+    public bool Blinking;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +23,10 @@ public class Blinker : MonoBehaviour
         //Player = GameObject.Find("Player").GetComponent<PlayerController>();
         Icon = GetComponent<Image>();
         CurrentPhase = Phases[0];
-        Value = Player.Heat;
+        //Value = Player.Heat;
+
+        if (PlayerPrefs.HasKey(PlayerPrefkeys.BlinkingEnabledKey))
+            Blinking = Convert.ToBoolean(PlayerPrefs.GetInt(PlayerPrefkeys.BlinkingEnabledKey));
     }
 
     // Update is called once per frame
@@ -35,7 +39,7 @@ public class Blinker : MonoBehaviour
             Icon.color = SynchronizeWith.CurrentPhase.Clr;
         }
 
-        else if (Player != null)
+        /*else if (Player != null)
             if (Player.Heat != Value)
             {
                 if (!CurrentPhase.InRange(Value / Player.MaxHeat))
@@ -47,20 +51,46 @@ public class Blinker : MonoBehaviour
                     Icon.color = CurrentPhase.Clr;
                     IsOn = true;
 
-                    StartCoroutine(Flicker());
-                } 
+                    if (!SolidColor)
+                        StartCoroutine(Flicker());
+                }
             }
 
         Value = Player.Heat;
+        Icon.enabled = IsOn;*/
+
+        else if (!CurrentPhase.InRange(Value))
+        {
+            StopAllCoroutines();
+            CurrentPhase = Phases.First(p => p.InRange(Value));
+
+            Icon.sprite = CurrentPhase.Icon;
+            Icon.color = CurrentPhase.Clr;
+            IsOn = true;
+
+            if (Blinking)
+                StartCoroutine(Flicker());
+        }
+
         Icon.enabled = IsOn;
     }
 
+    public void UpdateValue(float newValue)
+    {
+        Value = newValue;
+    }
+
+    public void UpdateValue(bool newValue)
+    {
+        Blinking = newValue;
+    }
 
     IEnumerator Flicker()
     {
         yield return new WaitForSeconds(CurrentPhase.FlickerDuration);
 
-        IsOn = !IsOn;
+        if (Blinking)
+            IsOn = !IsOn;
 
         StartCoroutine(Flicker());
     }
@@ -73,7 +103,7 @@ public class Blinker : MonoBehaviour
         [SerializeField] public float FlickerDuration;
         [SerializeField] float RangeMin;
         [SerializeField] float RangeMax;
-        [SerializeField] bool Procentage;
+        //[SerializeField] bool Percentage;
         [SerializeField] bool MinEnclusive;
         [SerializeField] bool MaxEnclusive;
 

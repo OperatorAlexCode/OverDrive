@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -10,6 +12,7 @@ public class SettingsMenu : Menu
     public UnityEvent<float> OnMusicVolumeChange;
     public UnityEvent<float> OnSfxVolumeChange;
     public UnityEvent<float> OnRotationSpeedChange;
+    public UnityEvent<bool> OnBlinkingEnabledChange;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +22,9 @@ public class SettingsMenu : Menu
 
         if (PlayerPrefs.HasKey(PlayerPrefkeys.RotationalSpeedKey))
             transform.Find("Options").Find(GameObjectNames.RotateSpeedSlider).Find("Slider").GetComponent<Slider>().value = PlayerPrefs.GetFloat(PlayerPrefkeys.RotationalSpeedKey);
+
+        if (PlayerPrefs.HasKey(PlayerPrefkeys.BlinkingEnabledKey))
+            transform.Find("Options").Find(GameObjectNames.BlinkingEnableToggle).GetComponent<Toggle>().isOn = Convert.ToBoolean(PlayerPrefs.GetInt(PlayerPrefkeys.BlinkingEnabledKey));
     }
 
     // Update is called once per frame
@@ -57,6 +63,14 @@ public class SettingsMenu : Menu
         PlayerPrefs.Save();
 
         OnRotationSpeedChange.Invoke(newValue);
+    }
+
+    public void BlinkingEnabledChange(bool newValue)
+    {
+        PlayerPrefs.SetInt(PlayerPrefkeys.BlinkingEnabledKey, Convert.ToInt32(newValue));
+        PlayerPrefs.Save();
+
+        OnBlinkingEnabledChange.Invoke(newValue);
     }
 
     public void SaveSettings()

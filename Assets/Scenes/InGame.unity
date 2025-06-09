@@ -6036,14 +6036,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62dffd33d21859641a1d31f76e0815bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 0
+  Value: 0.5
   Phases:
   - Icon: {fileID: 0}
     Clr: {r: 1, g: 1, b: 1, a: 0}
     FlickerDuration: 0
     RangeMin: 0.4
     RangeMax: 0.6
-    Procentage: 1
     MinEnclusive: 0
     MaxEnclusive: 0
   - Icon: {fileID: 0, guid: de864aabe8fa04f4eae29529dc5d8563, type: 3}
@@ -6051,7 +6050,6 @@ MonoBehaviour:
     FlickerDuration: 0.75
     RangeMin: 0.6
     RangeMax: 0.8
-    Procentage: 1
     MinEnclusive: 1
     MaxEnclusive: 0
   - Icon: {fileID: -2715355702566228081, guid: de864aabe8fa04f4eae29529dc5d8563, type: 3}
@@ -6059,7 +6057,6 @@ MonoBehaviour:
     FlickerDuration: 0.5
     RangeMin: 0.8
     RangeMax: 1
-    Procentage: 1
     MinEnclusive: 1
     MaxEnclusive: 0
   - Icon: {fileID: 5225222787405853307, guid: de864aabe8fa04f4eae29529dc5d8563, type: 3}
@@ -6067,7 +6064,6 @@ MonoBehaviour:
     FlickerDuration: 0.75
     RangeMin: 0.2
     RangeMax: 0.4
-    Procentage: 1
     MinEnclusive: 0
     MaxEnclusive: 1
   - Icon: {fileID: -8897830086801137127, guid: de864aabe8fa04f4eae29529dc5d8563, type: 3}
@@ -6075,7 +6071,6 @@ MonoBehaviour:
     FlickerDuration: 0.5
     RangeMin: 0
     RangeMax: 0.2
-    Procentage: 1
     MinEnclusive: 0
     MaxEnclusive: 1
   SynchronizeWith: {fileID: 1974523477}
@@ -6085,11 +6080,10 @@ MonoBehaviour:
     FlickerDuration: 0
     RangeMin: 0
     RangeMax: 0
-    Procentage: 0
     MinEnclusive: 0
     MaxEnclusive: 0
-  Player: {fileID: 925760238}
   IsOn: 0
+  Blinking: 1
 --- !u!114 &266871659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8098,7 +8092,7 @@ MonoBehaviour:
   Charger: {fileID: 3816337022917436943, guid: abfe068305336a743aa876b411143a26, type: 3}
   Destroyer: {fileID: 3215613370875927162, guid: 94db5932d091a65489576687c3db0248, type: 3}
   Behemoth: {fileID: 885877264540161293, guid: 90eac242bfac7634191f5ad839009666, type: 3}
-  MaxEnemies: 20
+  MaxEnemies: 10
   TotalEnemiesToSpawn: 0
   Waves:
   - EnemiesToSpawn:
@@ -14453,6 +14447,33 @@ MonoBehaviour:
   ProjectileHitMask:
     serializedVersion: 2
     m_Bits: 2944
+  OnHeatChangePercentage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1974523477}
+        m_TargetAssemblyTypeName: Blinker, Assembly-CSharp
+        m_MethodName: UpdateValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 266871658}
+        m_TargetAssemblyTypeName: Blinker, Assembly-CSharp
+        m_MethodName: UpdateValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!198 &925760239
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -19308,7 +19329,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 1
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 10
@@ -39549,14 +39570,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62dffd33d21859641a1d31f76e0815bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 0
+  Value: 0.5
   Phases:
   - Icon: {fileID: 0}
     Clr: {r: 1, g: 1, b: 1, a: 0}
     FlickerDuration: 0
     RangeMin: 0.3
     RangeMax: 0.7
-    Procentage: 1
     MinEnclusive: 0
     MaxEnclusive: 0
   - Icon: {fileID: 0, guid: de864aabe8fa04f4eae29529dc5d8563, type: 3}
@@ -39564,7 +39584,6 @@ MonoBehaviour:
     FlickerDuration: 0.75
     RangeMin: 0.7
     RangeMax: 0.85
-    Procentage: 1
     MinEnclusive: 1
     MaxEnclusive: 0
   - Icon: {fileID: -2715355702566228081, guid: de864aabe8fa04f4eae29529dc5d8563, type: 3}
@@ -39572,7 +39591,6 @@ MonoBehaviour:
     FlickerDuration: 0.5
     RangeMin: 0.85
     RangeMax: 1
-    Procentage: 1
     MinEnclusive: 1
     MaxEnclusive: 0
   - Icon: {fileID: 5225222787405853307, guid: de864aabe8fa04f4eae29529dc5d8563, type: 3}
@@ -39580,7 +39598,6 @@ MonoBehaviour:
     FlickerDuration: 0.75
     RangeMin: 0.15
     RangeMax: 0.3
-    Procentage: 1
     MinEnclusive: 0
     MaxEnclusive: 1
   - Icon: {fileID: -8897830086801137127, guid: de864aabe8fa04f4eae29529dc5d8563, type: 3}
@@ -39588,7 +39605,6 @@ MonoBehaviour:
     FlickerDuration: 0.5
     RangeMin: 0
     RangeMax: 0.15
-    Procentage: 1
     MinEnclusive: 0
     MaxEnclusive: 1
   SynchronizeWith: {fileID: 0}
@@ -39598,11 +39614,10 @@ MonoBehaviour:
     FlickerDuration: 0
     RangeMin: 0
     RangeMax: 0
-    Procentage: 0
     MinEnclusive: 0
     MaxEnclusive: 0
-  Player: {fileID: 925760238}
   IsOn: 0
+  Blinking: 1
 --- !u!1 &2006589600
 GameObject:
   m_ObjectHideFlags: 0
@@ -40576,6 +40591,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1768440948}
     m_Modifications:
+    - target: {fileID: 4894907177083696933, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0, guid: bd7bb17172543c04982b15f2b362dc8b, type: 3}
+    - target: {fileID: 4894907178018938688, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4894907178018938688, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7065811966707298520}
+    - target: {fileID: 4894907178018938688, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BlinkingEnabledChange
+      objectReference: {fileID: 0}
+    - target: {fileID: 4894907178018938688, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SettingsMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4894907178018938688, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4894907178018938691, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4894907178018938691, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4894907178018938691, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 145
+      objectReference: {fileID: 0}
+    - target: {fileID: 4894907178018938691, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -160
+      objectReference: {fileID: 0}
     - target: {fileID: 7065811966202889116, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
       propertyPath: m_Name
       value: Settings
@@ -40694,7 +40749,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7065811966406731524, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -92.5
+      value: -60
       objectReference: {fileID: 0}
     - target: {fileID: 7065811966432786902, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
       propertyPath: m_Navigation.m_SelectOnUp
@@ -40786,7 +40841,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7065811967189252865, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -190
+      value: -222.5
       objectReference: {fileID: 0}
     - target: {fileID: 7065811967189252879, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -40870,7 +40925,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7065811967446249489, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -137.5
+      value: -105
       objectReference: {fileID: 0}
     - target: {fileID: 7065811967762627142, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
       propertyPath: m_AnchorMax.x
@@ -40929,6 +40984,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 687771653}
     - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: OnBlinkingEnabledChange.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
       propertyPath: OnSwitchTo.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -40969,6 +41028,14 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: OnBlinkingEnabledChange.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: OnBlinkingEnabledChange.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
       propertyPath: OnRotationSpeedChange.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 687771655}
@@ -40980,6 +41047,14 @@ PrefabInstance:
       propertyPath: OnMusicVolumeChange.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: OnBlinkingEnabledChange.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1974523477}
+    - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: OnBlinkingEnabledChange.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 266871658}
     - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
       propertyPath: OnMasterVolumeChange.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -41001,8 +41076,24 @@ PrefabInstance:
       value: SetPlayerRotationSpeed
       objectReference: {fileID: 0}
     - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: OnBlinkingEnabledChange.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: OnBlinkingEnabledChange.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
       propertyPath: OnSwitchTo.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: OnBlinkingEnabledChange.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateValue
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: OnBlinkingEnabledChange.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: UpdateValue
       objectReference: {fileID: 0}
     - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
       propertyPath: OnSwitchTo.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -41025,6 +41116,14 @@ PrefabInstance:
       value: GameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: OnBlinkingEnabledChange.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Blinker, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: OnBlinkingEnabledChange.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Blinker, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
       propertyPath: OnSwitchTo.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -41042,6 +41141,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
       propertyPath: OnRotationSpeedChange.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: OnBlinkingEnabledChange.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217737053361145379, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
+      propertyPath: OnBlinkingEnabledChange.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []

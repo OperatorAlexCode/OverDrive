@@ -13,4 +13,5 @@ public static class GameObjectNames
     public static string MusicVolumeSlider = "Music Volume Slider";
     public static string SfxVolumeSlider = "Sfx Volume Slider";
     public static string RotateSpeedSlider = "Rotate Speed Slider";
+    public static string BlinkingEnableToggle = "Blinking Enable Toggle";
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DebrisSpawner : MonoBehaviour
@@ -37,7 +38,9 @@ public class DebrisSpawner : MonoBehaviour
 
             Vector2 spawnPos = new Vector2(Random.Range(spawnArea.xMin, spawnArea.xMax), Random.Range(spawnArea.yMin, spawnArea.yMax));
 
-            while (Vector2.Distance(Player.transform.position,spawnPos) < 10)
+            float minDistance = 15;
+
+            while (Vector2.Distance(Player.transform.position,spawnPos) < minDistance && GameObject.FindGameObjectsWithTag("Enemy").Any(e => Vector2.Distance(e.transform.position,spawnPos) < minDistance))
                 spawnPos = new Vector2(Random.Range(spawnArea.xMin, spawnArea.xMax), Random.Range(spawnArea.yMin, spawnArea.yMax));
 
             newDebris.transform.position = spawnPos;

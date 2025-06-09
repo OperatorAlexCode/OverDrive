@@ -10,8 +10,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] List<SourceList> AudioSourcesInScene;
 
     /*[Range(0, 1)] */public float MasterVolume { get; set; } = 0.75f;
-    /*[Range(0, 1)] */public float MusicVolume { get; set; } = 0.75f;
-    /*[Range(0, 1)] */public float SfxVolume { get; set; } = 0.75f;
+    /*[Range(0, 1)] */public float MusicVolume { get; set; } = 1f;
+    /*[Range(0, 1)] */public float SfxVolume { get; set; } = 1f;
 
     // Start is called before the first frame update
     void Start()
