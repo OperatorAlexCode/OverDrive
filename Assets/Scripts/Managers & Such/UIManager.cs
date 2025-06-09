@@ -216,13 +216,13 @@ public class UIManager : MonoBehaviour
 
         if (toDisplay)
         {
-            PauseMenu.SwitchTo();
-
             if (!GetComponent<GameManager>().UseController)
                 ChangeToDefaultCursor();
 
             LastInterface = CurrentInterface;
             CurrentInterface = MenuUI.Pause;
+
+            PauseMenu.SwitchTo();
         }
         else
         {
@@ -232,11 +232,13 @@ public class UIManager : MonoBehaviour
             //else
             //    CurrentInterface = LastInterface;
 
-            if (LastInterface != MenuUI.Pause || CurrentInterface != MenuUI.Settings)
+            if (!(LastInterface == MenuUI.Pause && CurrentInterface == MenuUI.Settings))
                 CurrentInterface = LastInterface;
 
             if (!GetComponent<GameManager>().UseController)
                 ChangeToAimCursor();
+
+            PauseMenu.GoBack();
         }
     }
 

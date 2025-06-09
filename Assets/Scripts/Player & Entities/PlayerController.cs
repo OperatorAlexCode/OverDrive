@@ -6,8 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
-using UnityEditor.Rendering.LookDev;
-using static Unity.Profiling.ProfilerMarker;
 using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour

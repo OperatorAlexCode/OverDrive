@@ -8,7 +8,6 @@ using Pathfinding;
 using UnityEngine.Windows;
 using System.Linq;
 using UnityEngine.Events;
-using static UnityEditor.Experimental.GraphView.GraphView;
 using System.Numerics;
 
 public class GameManager : MonoBehaviour

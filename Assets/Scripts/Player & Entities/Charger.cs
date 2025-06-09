@@ -39,6 +39,12 @@ public class Charger : Drone
     {
         Health -= damage;
 
+        if (Health <= 0 && !IsDead)
+        {
+            StartCoroutine(EnemyDeath());
+            return;
+        }
+
         if (!IsDead)
         {
             if (Mathf.RoundToInt(Random.value) == 1)

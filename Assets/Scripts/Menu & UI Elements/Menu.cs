@@ -70,7 +70,8 @@ public class Menu : MonoBehaviour
     {
         LastSelectedElement = null;
         ActiveMenu = false;
-        PreviousMenu.SwitchTo();
+        if (PreviousMenu != null)
+            PreviousMenu.SwitchTo();
         gameObject.SetActive(false);
     }
 
