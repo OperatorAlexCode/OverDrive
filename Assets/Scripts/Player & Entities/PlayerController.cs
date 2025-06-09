@@ -455,7 +455,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case SecondaryWeapon.Flak:
                     Flak flak = new Flak();
-                    flak.Set(10, "Enemy", 3, 6);
+                    flak.Set(10, "Enemy", 5, 10);
                     TorpedoWarhead = flak;
                     break;
             }

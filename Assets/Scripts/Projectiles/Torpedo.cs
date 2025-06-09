@@ -320,7 +320,7 @@ public class Flak : Warhead
 {
     public float DamageRange;
     public float DetonationDistance;
-    public float Fuse = 0.25f;
+    public float Fuse = 0.05f;
     bool Detonated;
     bool FuseActivated;
 
