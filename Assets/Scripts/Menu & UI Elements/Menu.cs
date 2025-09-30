@@ -36,7 +36,10 @@ public class Menu : MonoBehaviour
         PreviousMenu = oldMenu;
         gameObject.SetActive(true);
 
-        if (FindObjectOfType<InputManager>().UseController)
+        InputManager input = FindObjectOfType<InputManager>();
+
+        if (input != null)
+        if (input.UseController)
         {
             //EventSystem.current.SetSelectedGameObject(LastSelectedElement != null ? LastSelectedElement : (DefaultSelectedElement != null ? DefaultSelectedElement.gameObject : null));
 

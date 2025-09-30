@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
+using static UnityEditor.Experimental.GraphView.GraphView;
+using UnityEngine.UI;
 
 public class Torpedo : Projectile
 {
-    Warhead Payload;
+    [SerializeField] Warhead Payload;
     protected bool ToBeDestroyed;
     [SerializeField] ParticleSystem Trail;
     [SerializeField] AudioSource EngineSfx;
@@ -108,6 +111,7 @@ public class Torpedo : Projectile
     }
 }
 
+[Serializable]
 public class Warhead
 {
     protected Rigidbody2D TorpedoRb;
@@ -160,6 +164,7 @@ public class Warhead
     }
 }
 
+[Serializable]
 public class Missile : Warhead
 {
     // Float2
@@ -174,7 +179,7 @@ public class Missile : Warhead
 
     // Other
     LayerMask TargetLayer = 1 << 6;
-    GameObject LatestTarget;
+    [SerializeField] GameObject LatestTarget;
     int TrackingLasers = 9;
 
     public override void WarheadLogic()
@@ -236,8 +241,8 @@ public class Missile : Warhead
         else
             TorpedoRb.angularVelocity = 0;
 
-        Debug.DrawRay(Torpedo.gameObject.transform.position, TorpedoRb.velocity, Color.blue);
-        Debug.DrawRay(Torpedo.gameObject.transform.position, Torpedo.gameObject.transform.up * 20f, Color.red);
+        //Debug.DrawRay(Torpedo.gameObject.transform.position, TorpedoRb.velocity, Color.blue);
+        //Debug.DrawRay(Torpedo.gameObject.transform.position, Torpedo.gameObject.transform.up * 20f, Color.red);
     }
 
     public override void Set(Warhead warheadStats)
@@ -248,6 +253,7 @@ public class Missile : Warhead
         Acceleration = stats.Acceleration;
         LockOnDistance = stats.LockOnDistance;
         SeekingCone = stats.SeekingCone;
+        TargetLayer = stats.TargetLayer;
     }
 
     public void Set(int damage, string targetTag, float turnSpeed, float speed, float lockOnDistance, float seekingCone)
@@ -274,7 +280,7 @@ public class Missile : Warhead
         {
             RaycastHit2D hit = Physics2D.Raycast(Torpedo.gameObject.transform.position, direction, float.PositiveInfinity, TargetLayer);
 
-            //Debug.DrawRay(Torpedo.gameObject.transform.position, direction * 100f, Color.red);
+            Debug.DrawRay(Torpedo.gameObject.transform.position, direction * LockOnDistance, Color.red);
 
             if (hit.collider != null)
                 raycastHits.Add(hit);
@@ -316,6 +322,7 @@ public class Missile : Warhead
     }
 }
 
+[Serializable]
 public class Flak : Warhead
 {
     public float DamageRange;

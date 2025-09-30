@@ -4960,7 +4960,7 @@ MonoBehaviour:
   - {fileID: 3215613370917816400}
   - {fileID: 3215613370376351650}
   - {fileID: 3215613369551582659}
-  Emitting: 0
+  Emitting: 1
 --- !u!1 &3215613370376351677
 GameObject:
   m_ObjectHideFlags: 0

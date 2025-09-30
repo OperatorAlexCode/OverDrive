@@ -56,9 +56,9 @@ public class Destroyer : Drone
                     StartCoroutine(Fire());
             }
 
-            else
+            //else
                 //EnableDisableEngineExhaust(false);
-                EngineExhaust.Stop();
+                //EngineExhaust.Stop();
 
             CapVelocity();
         }

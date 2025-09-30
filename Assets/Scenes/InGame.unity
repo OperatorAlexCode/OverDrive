@@ -5764,7 +5764,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 3
   Changes:
-  - Value: -5
+  - Value: -3
     Stat: 7
   Icon: {fileID: 2239452254580209766, guid: 3d3b049dbe1d33744afc05a03f2633e5, type: 3}
 --- !u!1 &154894918
@@ -14400,7 +14400,7 @@ MonoBehaviour:
   Acceleration: 400
   RotationalSpeed: 300
   MaxVelocity: 15
-  MinHeatGainVel: 5
+  MinHeatGainVel: 3
   LastVelocity: 0
   Heat: 0
   MaxHeat: 6000
@@ -14410,7 +14410,7 @@ MonoBehaviour:
   PrimairyHeatCost: 20
   PrimaryFireDelay: 0
   PrimaryLaunchSpeed: 7
-  ScattershotSpread: 4.5
+  ScattershotSpread: 6
   TurretRotationSpeedController: 0
   SecondaryCooldown: 1
   SecondaryHeatCost: 150
@@ -30569,7 +30569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 3
   Changes:
-  - Value: 5
+  - Value: 3
     Stat: 7
   Icon: {fileID: 3597838213704109122, guid: 3d3b049dbe1d33744afc05a03f2633e5, type: 3}
 --- !u!1 &1173708833
@@ -36768,59 +36768,6 @@ MonoBehaviour:
   - {fileID: 979997222}
   - {fileID: 1327583246}
   Emitting: 0
---- !u!1 &1434701359
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1434701360}
-  - component: {fileID: 1434701361}
-  m_Layer: 0
-  m_Name: Input Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1434701360
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1434701359}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 144.90533, y: 271.447, z: 4.8502827}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1434701361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1434701359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3649290c0a5291847804be1eb4d938e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UseController: 0
-  OnGamepadSwitch:
-    m_PersistentCalls:
-      m_Calls: []
-  OnKeyboardSwitch:
-    m_PersistentCalls:
-      m_Calls: []
-  AimCursor: {fileID: 2800000, guid: e92a122a5cf490f4c8e8ce79bd7c12ef, type: 3}
-  DefaultCursor: {fileID: 2800000, guid: 87b9defac68041e47b10ba7d084dc4b3, type: 3}
 --- !u!1 &1437449997
 GameObject:
   m_ObjectHideFlags: 0

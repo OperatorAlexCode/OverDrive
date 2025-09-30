@@ -92,7 +92,13 @@ public class InputManager : MonoBehaviour
             SwitchToKeyboardControls();
 
         if (FindObjectOfType<InputSystemUIInputModule>() != null)
+        {
             FindObjectOfType<InputSystemUIInputModule>().deselectOnBackgroundClick = !(PlayerInput.all[0].currentControlScheme == "Gamepad");
+
+            if (PlayerInput.all[0].currentControlScheme == "Gamepad" && EventSystem.current.currentSelectedGameObject == null)
+                if (FindObjectsOfType<Menu>().Any(m => m.ActiveMenu))
+                    FindObjectsOfType<Menu>().First(m => m.ActiveMenu).ForceSelectElement();
+        }
     }
 
     public void SwitchToGamepadControls()
@@ -124,6 +130,7 @@ public class InputManager : MonoBehaviour
         //    PlayerInput.all[0].SwitchCurrentActionMap("Player");
 
         PlayerInput.all[0].SwitchCurrentControlScheme(Gamepad.current);
+        
         UseController = true;
 
         OnGamepadSwitch.Invoke();
@@ -135,8 +142,9 @@ public class InputManager : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        if (EventSystem.current.currentSelectedGameObject != null)
-            EventSystem.current.SetSelectedGameObject(null);
+        if (EventSystem.current != null)
+            if (EventSystem.current.currentSelectedGameObject != null)
+                EventSystem.current.SetSelectedGameObject(null);
 
         ChangeToDefaultCursor();
 
@@ -154,7 +162,8 @@ public class InputManager : MonoBehaviour
         InputSystem.EnableDevice(Keyboard.current);
         InputSystem.EnableDevice(Mouse.current);*/
 
-        PlayerInput.all[0].SwitchCurrentControlScheme(Keyboard.current, Mouse.current);
+        if (PlayerInput.all.Count > 0)
+            PlayerInput.all[0].SwitchCurrentControlScheme(Keyboard.current, Mouse.current);
         UseController = false;
         OnKeyboardSwitch.Invoke();
     }

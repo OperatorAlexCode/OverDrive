@@ -134,7 +134,7 @@ public class PlayerController : MonoBehaviour
         soundManager.AddAudioSource(EnginesSfx, SourceType.Sfx);
         //soundManager.AddAudioSource(DeathSfx, SourceType.Sfx);
 
-        //ChangeWeaponType(SecondaryWeapon.Flak);
+        //ChangeWeaponType(SecondaryWeapon.Missile);
     }
 
     public void Awake()
@@ -450,7 +450,8 @@ public class PlayerController : MonoBehaviour
             {
                 case SecondaryWeapon.Missile:
                     Missile missile = new Missile();
-                    missile.Set(10, "Enemy", 1000, 30, 6f, 30);
+                    missile.Set(10, "Enemy", 1000, 30, 2f, 30);
+                    missile.Set(1 << 7);
                     TorpedoWarhead = missile;
                     break;
                 case SecondaryWeapon.Flak:
@@ -623,7 +624,8 @@ public class PlayerController : MonoBehaviour
                     PrimairyHeatCost += change.Value;
                     break;
                 case Stat.Spread:
-                    ScattershotSpread += change.Value;
+                    if (ScattershotSpread + change.Value > 0)
+                        ScattershotSpread += change.Value;
                     break;
                 case Stat.ShotsAmount:
                     ScattershotsAmount += (int)change.Value;

@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // Finds and sets the players color
+        Time.timeScale = 1;
         Player = GameObject.Find(GameObjectNames.Player).GetComponent<PlayerController>();
         Player.SetColor(PlayerShipColor);
 

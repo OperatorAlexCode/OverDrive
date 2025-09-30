@@ -5016,7 +5016,7 @@ MonoBehaviour:
   DespawnDistance: 200
   NextWaypointDistance: 1
   StunDuration: 0
-  Health: 200
+  Health: 1000
   Damage: 6
   Projectile: {fileID: 6944717897172984037, guid: aa7ed137b8a463e4f80cb3270b756594, type: 3}
   EngineExhaust: {fileID: 7700263682108194160}
@@ -19780,7 +19780,7 @@ MonoBehaviour:
   - {fileID: 885877264565208871}
   - {fileID: 885877264041631957}
   - {fileID: 885877264792877748}
-  Emitting: 0
+  Emitting: 1
 --- !u!1 &1732242383202522772
 GameObject:
   m_ObjectHideFlags: 0

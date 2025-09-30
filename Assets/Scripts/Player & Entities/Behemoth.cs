@@ -81,6 +81,9 @@ public class Behemoth : Destroyer
         foreach (LaserTurret turret in Turrets)
             turret.Disable(true);
 
+        foreach (Renderer renderer in GetComponentsInChildren<SpriteRenderer>())
+            renderer.enabled = false;
+
         StartCoroutine(base.EnemyDeath());
         yield return null;
     }
