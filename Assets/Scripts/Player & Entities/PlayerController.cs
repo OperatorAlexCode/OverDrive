@@ -493,7 +493,7 @@ public class PlayerController : MonoBehaviour
 
         GameObject.Find("Managers").GetComponent<UIManager>().DisplayHud(false);
 
-        if (Health <= 0)
+        if (Health <= 0 || Heat >= MaxHeat)
         {
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             transform.Find("Turret").GetComponent<SpriteRenderer>().enabled = false;
