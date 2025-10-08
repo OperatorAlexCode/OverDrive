@@ -542,6 +542,16 @@ public class PlayerController : MonoBehaviour
         else
             return output;
     }
+
+    public void ChangeHealth(int healthChange)
+    {
+        Health = Mathf.Min(Health+healthChange, MaxHealth);
+    }
+
+    public void ChangeHeat(float heatChange)
+    {
+        Heat += heatChange;
+    }
     #endregion
 
     #region Upgrade Functions
@@ -752,7 +762,7 @@ public class PlayerController : MonoBehaviour
     #endregion
     public IEnumerator Repair()
     {
-        if (AbilityInUse == Ability.None && IsAbilityAvailable[Ability.RepairKit] == true)
+        if (AbilityInUse == Ability.None && IsAbilityAvailable[Ability.RepairKit] == true && Heat + RepairKitHeatCost < MaxHeat)
         {
             IsAbilityAvailable[Ability.RepairKit] = false;
             AbilityInUse = Ability.RepairKit;
@@ -765,6 +775,8 @@ public class PlayerController : MonoBehaviour
             yield return StartCoroutine(Cooldown(RepairKitCooldown, GameObject.Find("Managers").GetComponent<UIManager>().Ability1Timer));
             IsAbilityAvailable[Ability.RepairKit] = true;
         }
+
+        yield return null;
     }
 
     public IEnumerator VentHeat()
@@ -788,6 +800,8 @@ public class PlayerController : MonoBehaviour
 
             while (t < HeatVentDuration)
             {
+                if (IsDead) break;
+
                 float heatToVent = Mathf.Lerp(0, HeatVentDrainAmount, t / HeatVentDuration) - heatVented;
                 Heat -= heatToVent;
                 heatVented += heatToVent;
@@ -811,6 +825,8 @@ public class PlayerController : MonoBehaviour
             yield return StartCoroutine(Cooldown(HeatVentCooldown, timer));
             IsAbilityAvailable[Ability.HeatVent] = true;
         }
+
+        yield return null;
     }
 
     /// <summary>

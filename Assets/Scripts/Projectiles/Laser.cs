@@ -10,9 +10,9 @@ public class Laser : Projectile
     [SerializeField]
     int Penetration;
 
-    public override void ProjectileDeath(bool silentDestuction = false)
+    public override void ProjectileDeath(bool silentDestuction = false, string targetTag = "")
     {
-        if (Penetration-- <= 0 || Age >= LifeTime)
+        if (Penetration-- <= 0 || Age >= LifeTime || targetTag == "Debris")
         {
             if (GetComponent<ParticleSystem>().isPlaying)
                 GetComponent<ParticleSystem>().Stop();

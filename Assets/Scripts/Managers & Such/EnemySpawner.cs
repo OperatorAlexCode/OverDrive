@@ -23,6 +23,7 @@ public class EnemySpawner : MonoBehaviour
     public int TotalEnemiesToSpawn;
     public Dictionary<EnemyType, int> EnemiesLeft;
     [SerializeField] public List<Wave> Waves;
+    [SerializeField] Transform SpawnParent;
 
     void Start()
     {
@@ -45,8 +46,6 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator Spawn(GameObject enemyToSpawn, bool isBoss = false)
     {
-        GameObject newEnemy = Instantiate(enemyToSpawn);
-
         //// Creates a vector with a length of spawndistance pointing in a random direction
         //float v = Random.Range(0, 2 * Mathf.PI);
         //float x = Mathf.Cos(v);
@@ -86,7 +85,8 @@ public class EnemySpawner : MonoBehaviour
                 break;
         }
 
-        newEnemy.transform.position = spawnPos;
+        GameObject newEnemy = Instantiate(enemyToSpawn, spawnPos, new(), SpawnParent);
+
         newEnemy.transform.eulerAngles = new(0, 0, Random.Range(0f, 2 * Mathf.PI));
 
         if (isBoss)

@@ -5,6 +5,7 @@ using System.Linq;
 using System;
 using static UnityEditor.Experimental.GraphView.GraphView;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class Torpedo : Projectile
 {
@@ -38,7 +39,7 @@ public class Torpedo : Projectile
         ToBeDestroyed = true;
     }
 
-    public override void ProjectileDeath(bool silentDestuction = false)
+    public override void ProjectileDeath(bool silentDestuction = false, string targetTag = "")
     {
         if (silentDestuction)
         {

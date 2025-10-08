@@ -131,6 +131,7 @@ public class GameManager : MonoBehaviour
         if (IsWaveDone())
         {
             InWave = false;
+            gameObject.GetComponent<PowerUpManager>().StopSpawning();
 
             if (gameObject.GetComponent<EnemySpawner>().LastWave(Wave))
                 GameWin();
@@ -149,6 +150,7 @@ public class GameManager : MonoBehaviour
     public void StartWave()
     {
         gameObject.GetComponent<EnemySpawner>().StartWave(++Wave);
+        gameObject.GetComponent<PowerUpManager>().StartSpawning();
         InWave = true;
         Player.EnableDisableAutoStop(false);
         Player.EnableDisableWeapons(false);

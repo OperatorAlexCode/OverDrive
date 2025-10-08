@@ -50,22 +50,22 @@ public class Projectile : MonoBehaviour
             {
                 case "Player":
                     target.GetComponent<PlayerController>().Hurt(Damage);
-                    ProjectileDeath();
+                    ProjectileDeath(targetTag:target.tag);
                     break;
                 case "Enemy":
                     target.GetComponent<Drone>().Hurt(Damage);
-                    ProjectileDeath();
+                    ProjectileDeath(targetTag: target.tag);
                     break;
                 case "PlayerProjectile":
                     target.GetComponent<Projectile>().ProjectileDeath();
-                    ProjectileDeath(true);
+                    ProjectileDeath(true, target.tag);
                     break;
                 case "EnemyProjectile":
                     target.GetComponent<Projectile>().ProjectileDeath();
-                    ProjectileDeath(true);
+                    ProjectileDeath(true, target.tag);
                     break;
                 default:
-                    ProjectileDeath();
+                    ProjectileDeath(targetTag: target.tag);
                     break;
             }
     }
@@ -86,7 +86,7 @@ public class Projectile : MonoBehaviour
         HitMask = hitMask;
     }
 
-    public virtual void ProjectileDeath(bool silentDestuction = false)
+    public virtual void ProjectileDeath(bool silentDestuction = false, string targetTag = "")
     {
         if (Fired)
         {

@@ -5520,7 +5520,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 98926262}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3691688b8c8fc514c9d76371e7802d2c, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -5578,7 +5578,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 113789309}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3691688b8c8fc514c9d76371e7802d2c, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -5631,6 +5631,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &146342529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 146342530}
+  m_Layer: 0
+  m_Name: Power Ups
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &146342530
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146342529}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &148894640
 GameObject:
   m_ObjectHideFlags: 0
@@ -6217,7 +6248,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 359679038}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3691688b8c8fc514c9d76371e7802d2c, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -6761,7 +6792,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 505405884}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3691688b8c8fc514c9d76371e7802d2c, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -7227,6 +7258,37 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7065811966202889117, guid: dd43000aa1b51e94db6e1a4809ecd41d, type: 3}
   m_PrefabInstance: {fileID: 7065811966707298518}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &604170108
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 604170109}
+  m_Layer: 0
+  m_Name: Enemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &604170109
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604170108}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &608056730
 GameObject:
   m_ObjectHideFlags: 0
@@ -8052,6 +8114,7 @@ GameObject:
   - component: {fileID: 687771656}
   - component: {fileID: 687771657}
   - component: {fileID: 687771658}
+  - component: {fileID: 687771659}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -8067,7 +8130,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 687771650}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8170,6 +8233,7 @@ MonoBehaviour:
     - Type: 3
       SpawnAmount: 1
       BossEnemy: 1
+  SpawnParent: {fileID: 604170109}
 --- !u!114 &687771653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8393,6 +8457,32 @@ MonoBehaviour:
   AudioSourcesInScene:
   - Sources: []
   - Sources: []
+--- !u!114 &687771659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687771650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b67bebd0b60fec948acd343901a292de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PowerUps:
+  - PowerUp: {fileID: 2829963793537045807, guid: 05c74f41cf2256047aaf2a943a7f0802, type: 3}
+    Weight: 10
+  - PowerUp: {fileID: 8325995950507207669, guid: e5fe6a7b6de2fc44aaca191d55cad462, type: 3}
+    Weight: 45
+  - PowerUp: {fileID: 7356435630007797611, guid: e947b837852e8cc4a967d030a4471448, type: 3}
+    Weight: 45
+  MaxPowerUps: 10
+  SpawnDelayMin: 7.5
+  SpawnDelayMax: 15
+  BorderMargin: 10
+  SpawnDistMin: 30
+  SpawnDistMax: 50
+  SpawnParent: {fileID: 146342530}
 --- !u!224 &690432758 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 965058715969612474, guid: e1dc5cf6ade8f8245819219b02ca6701, type: 3}
@@ -14400,7 +14490,7 @@ MonoBehaviour:
   Acceleration: 400
   RotationalSpeed: 300
   MaxVelocity: 15
-  MinHeatGainVel: 3
+  MinHeatGainVel: 4
   LastVelocity: 0
   Heat: 0
   MaxHeat: 6000
@@ -19638,7 +19728,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 931840390}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3691688b8c8fc514c9d76371e7802d2c, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -30460,7 +30550,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1124428789}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3691688b8c8fc514c9d76371e7802d2c, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -31175,7 +31265,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1293274245}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3691688b8c8fc514c9d76371e7802d2c, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -39444,7 +39534,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1942915491}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3691688b8c8fc514c9d76371e7802d2c, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
